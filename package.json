@@ -2,8 +2,7 @@
   "name": "saai-bd",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "type": "module",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +10,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
-  }
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoaoPRN/SAAI-BD.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JoaoPRN/SAAI-BD/issues"
+  },
+  "homepage": "https://github.com/JoaoPRN/SAAI-BD#readme"
 }
