@@ -1,11 +1,14 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 const config = {
     db: {
-        host: "localhost",
-        user: "",
-        password: "",
-        database: "",
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
     },
-    port: 3000,
-    listPerPage: 100
+    port: process.env.PORT,
+    listPerPage: process.env.LIST_PER_PAGE
 };
 export default config;
