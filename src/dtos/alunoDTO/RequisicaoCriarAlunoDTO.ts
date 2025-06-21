@@ -12,7 +12,6 @@ import {
 
 export class RequisicaoCriarAlunoDTO {
   @IsDefined({ message: "Matrícula é obrigatória." })
-  @IsInt({ message: "Matrícula deve ser um número inteiro." })
   @Length(9, 9, { message: "Matrícula deve ter exatamente 9 caracteres." })
   @Matches(/^\d+$/, { message: "Matrícula deve conter apenas números." })
   matricula!: number;
