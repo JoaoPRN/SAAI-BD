@@ -39,4 +39,8 @@ export class RequisicaoCriarAlunoDTO {
     { message: "Data de nascimento deve ser uma data válida (ISO)." }
   )
   dataNascimento!: string;
+
+  @Length(11, 11, { message: "telefone deve ter exatamente 11 caracteres." })
+  @Matches(/^\d+$/, { message: "telefone deve conter apenas números." })
+  telefone!: string;
 }
