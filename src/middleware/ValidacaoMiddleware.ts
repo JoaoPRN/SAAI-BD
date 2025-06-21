@@ -11,9 +11,10 @@ export function ValidacaoMiddleware<T extends object>(DTOClass: new () => T) {
         property: e.property,
         constraints: e.constraints,
       }));
-      return res
+      res
         .status(400)
         .json({ message: "Erro de validação", errors: formattedErrors });
+      return;
     }
     next();
   };
