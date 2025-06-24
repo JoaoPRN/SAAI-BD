@@ -1,12 +1,22 @@
 import express, { NextFunction, Request, Response } from "express";
+import dotenv from 'dotenv'; //teste
+
+dotenv.config();
 
 const app = express();
 import db from "./database/config";
 import aluno from "./routes/AlunoRoutes";
+import test from "./routes/teste"; //teste
 
 const port = db.port;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => { // requisicao get normal
+  res.status(200).send("oi, rota incial");
+});
+
+app.use('/test', test); // monta uma rota teste
 
 app.use("/aluno", aluno);
 
