@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv'; //teste
 
 dotenv.config();
@@ -6,6 +6,7 @@ dotenv.config();
 const app = express();
 import db from "./database/config";
 import aluno from "./routes/AlunoRoutes";
+import professor from "./routes/ProfessorRoutes";
 import test from "./routes/teste"; //teste
 
 const port = db.port;
@@ -19,6 +20,7 @@ app.get('/', (req, res) => { // requisicao get normal
 app.use('/test', test); // monta uma rota teste
 
 app.use("/aluno", aluno);
+app.use("/professor", professor);
 
 /* Error handler middleware */
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
