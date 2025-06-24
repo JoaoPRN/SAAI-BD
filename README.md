@@ -6,8 +6,10 @@
 
 - MySQL Server rodando localmente
 
-- Comando para instalar todas os requisitos: `npm i nodejs mysql express typescript ts-node-dev react dotenv
-`
+- Comando para instalar todos os requisitos:
+```
+  npm i nodejs mysql express typescript ts-node-dev react dotenv
+```
 
 ## ✅ Configuração do Banco de Dados
 
@@ -21,6 +23,11 @@
 
 ```sql
   CREATE DATABASE SAAI;
+```
+E indicar que vai usar o banco:
+
+```sql
+  USE SAAI;
 ```
 
 3. Criar as Tabelas:
@@ -206,7 +213,24 @@ Crie um arquivo .env na raiz do projeto com o seguinte conteúdo:
 ```bash
     npm run dev
 ```
+Ou:
+```bash
+    npm start
+```
 
 O servidor será iniciado na porta definida no .env.
 
 Exemplo: http://localhost:3000
+
+### ✅ Bonus
+Pra fazer push em develop (ou na main) de forma rápida.
+
+```
+  git pull
+  git checkout sua-branch
+  git fetch origin
+  git pull origin develop
+  git push origin sua-branch:develop
+```
+
+Isso garante que você está na sua branch, atualiza o repositório local, faz merge na develop (ou main) e envia as mudanças para o repositório remoto.
