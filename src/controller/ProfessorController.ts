@@ -1,10 +1,13 @@
 //imports
-//import {Request, Response} from 'express';
+import {Request, Response} from 'express';
 
 
 class ProfessorController {
-    static async criarProfessor(){
-        console.log('é pra dar um insert na table professor');
+    static async criarProfessor(
+        req: Request,
+        res: Response
+    ) {
+        res.send('Dar insert na table professor')
     }
 }
 
