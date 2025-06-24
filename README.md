@@ -6,6 +6,9 @@
 
 - MySQL Server rodando localmente
 
+- Comando para instalar todas os requisitos: `npm i nodejs mysql express typescript ts-node-dev react dotenv
+`
+
 ## ✅ Configuração do Banco de Dados
 
 1.  Conectar ao MySQL via terminal:
