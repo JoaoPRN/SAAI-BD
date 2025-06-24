@@ -221,3 +221,16 @@ Ou:
 O servidor será iniciado na porta definida no .env.
 
 Exemplo: http://localhost:3000
+
+### ✅ Bonus
+Pra fazer push em develop (ou na main) de forma rápida.
+
+```
+  git pull
+  git checkout sua-branch
+  git fetch origin
+  git pull origin develop
+  git push origin sua-branch:develop
+```
+
+Isso garante que você está na sua branch, atualiza o repositório local, faz merge na develop (ou main) e envia as mudanças para o repositório remoto.
