@@ -186,6 +186,86 @@ ALTER TABLE TD_AVL_SERVICOS ADD CONSTRAINT FK_Avaliação_serviços_2
   REFERENCES TD_TIPO_SERVICO (NUM_ID_SERVICO);
 ```
 
+### ✅ Carga Inicial de Dados no Banco SAAI
+
+Esta procedure automatiza a inserção de dados nas tabelas principais do sistema: TD_PROFESSOR, TD_DISCIPLINA, TD_SALA e TD_TIPO_SERVICO.
+
+```sql
+CREATE PROCEDURE SAAI.cargaInicialDados (
+  -- Dados do professor
+  IN matricula_professor INT,
+  IN nome_professor VARCHAR(40),
+  IN dt_ingresso_professor DATE,
+
+  -- Dados da disciplina
+  IN codigo_disciplina SMALLINT,
+  IN nome_disciplina VARCHAR(30),
+  IN carga_horaria INT,
+
+  -- Dados da sala de aula
+  IN numero_sala SMALLINT,
+  IN numero_capacidade SMALLINT,
+
+  -- Dados do serviço
+  IN nome_servico VARCHAR(30)
+)
+BEGIN
+  --  Inserir professor
+  IF NOT EXISTS (
+    SELECT 1 FROM TD_PROFESSOR WHERE NUM_MATRICULA_PROFESSOR = matricula_professor
+  ) THEN
+    INSERT INTO TD_PROFESSOR (
+      NUM_MATRICULA_PROFESSOR, NOM_PROFESSOR, DT_INGRESSO
+    ) VALUES (
+      matricula_professor, nome_professor, dt_ingresso_professor
+    );
+  END IF;
+
+  --  Inserir disciplina
+  IF NOT EXISTS (
+    SELECT 1 FROM TD_DISCIPLINA WHERE NUM_CODIGO_DISCIPLINA = codigo_disciplina
+  ) THEN
+    INSERT INTO TD_DISCIPLINA (
+      NUM_CODIGO_DISCIPLINA, NOM_DISCIPLINA, NUM_CARGA_HORARIA
+    ) VALUES (
+      codigo_disciplina, nome_disciplina, carga_horaria
+    );
+  END IF;
+
+  -- Inserir Sala de Aula
+  IF NOT EXISTS (
+    SELECT 1 FROM TD_SALA WHERE NUM_SALA = numero_sala
+  ) THEN
+    INSERT INTO TD_SALA (NUM_SALA, NUM_CAPACIDADE
+    ) VALUES (
+  numero_sala, numero_capacidade
+  );
+  END IF;
+
+  -- Inserir serviço
+  IF NOT EXISTS (
+    SELECT 1 FROM TD_TIPO_SERVICO WHERE NOM_TIPO_SERVICO = nome_servico
+  ) THEN
+    INSERT INTO TD_TIPO_SERVICO (NOM_TIPO_SERVICO)
+    VALUES (nome_servico);
+  END IF;
+END
+```
+
+Utilize os comandos abaixo para popular o banco com dados iniciais consistentes:
+
+```sql
+CALL SAAI.cargaInicialDados(100000004, 'Marcos Vinícius', '2017-05-20', 304, 'Redes de Computadores', 60, 204, 45, 'Biblioteca Central');
+CALL SAAI.cargaInicialDados(100000005, 'Patrícia Alves', '2019-01-10', 305, 'Engenharia de Software', 60, 205, 40, 'Centro Esportivo');
+CALL SAAI.cargaInicialDados(100000006, 'Renato Souza', '2014-09-30', 306, 'Banco de Dados', 60, 206, 35, 'Restaurante Unirversitário');
+CALL SAAI.cargaInicialDados(100000007, 'Fernanda Lima', '2016-12-05', 307, 'Inteligência Artificial', 60, 207, 50, 'Serviço de Transporte');
+CALL SAAI.cargaInicialDados(100000009, 'Aline Pereira', '2020-03-25', 309, 'Computação Gráfica', 60, 209, 40, 'Assistência Social');
+CALL SAAI.cargaInicialDados(100000010, 'João Marcos', '2013-11-11', 310, 'Criptografia', 60, 210, 45, 'Secretaria Acadêmica');
+CALL SAAI.cargaInicialDados(100000011, 'Larissa Fernandes', '2017-06-22', 311, 'Engenharia de Computação', 60, 211, 50, 'Auditorio Principal');
+CALL SAAI.cargaInicialDados(100000012, 'Thiago Rodrigues', '2015-04-17', 312, 'Computação em Nuvem', 60, 212, 35, 'Centro Esportivo');
+CALL SAAI.cargaInicialDados(100000013, 'Carolina Alves', '2019-10-30', 313, 'Segurança da Informação', 60, 213, 40, 'Laboratório de Idiomas');
+```
+
 ### ✅ Instalando dependências
 
 Na raiz do projeto, execute:
