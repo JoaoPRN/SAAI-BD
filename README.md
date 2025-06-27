@@ -271,15 +271,15 @@ END
 Utilize os comandos abaixo para popular o banco com dados iniciais consistentes:
 
 ```sql
-CALL SAAI.cargaInicialDados(100000004, 'Marcos Vinícius', '2017-05-20', 304, 'Redes de Computadores', 60, 204, 45, 'Biblioteca Central');
-CALL SAAI.cargaInicialDados(100000005, 'Patrícia Alves', '2019-01-10', 305, 'Engenharia de Software', 60, 205, 40, 'Centro Esportivo');
-CALL SAAI.cargaInicialDados(100000006, 'Renato Souza', '2014-09-30', 306, 'Banco de Dados', 60, 206, 35, 'Restaurante Unirversitário');
-CALL SAAI.cargaInicialDados(100000007, 'Fernanda Lima', '2016-12-05', 307, 'Inteligência Artificial', 60, 207, 50, 'Serviço de Transporte');
-CALL SAAI.cargaInicialDados(100000009, 'Aline Pereira', '2020-03-25', 309, 'Computação Gráfica', 60, 209, 40, 'Assistência Social');
-CALL SAAI.cargaInicialDados(100000010, 'João Marcos', '2013-11-11', 310, 'Criptografia', 60, 210, 45, 'Secretaria Acadêmica');
-CALL SAAI.cargaInicialDados(100000011, 'Larissa Fernandes', '2017-06-22', 311, 'Engenharia de Computação', 60, 211, 50, 'Auditorio Principal');
-CALL SAAI.cargaInicialDados(100000012, 'Thiago Rodrigues', '2015-04-17', 312, 'Computação em Nuvem', 60, 212, 35, 'Centro Esportivo');
-CALL SAAI.cargaInicialDados(100000013, 'Carolina Alves', '2019-10-30', 313, 'Segurança da Informação', 60, 213, 40, 'Laboratório de Idiomas');
+CALL SAAI.cargaInicialDados(100000004, 'Marcos Vinícius', '2017-05-20', 304, 'Redes de Computadores', 60, 204, 45, 'Biblioteca Central', '2025.1');
+CALL SAAI.cargaInicialDados(100000005, 'Patrícia Alves', '2019-01-10', 305, 'Engenharia de Software', 60, 205, 40, 'Centro Esportivo', '2025.1');
+CALL SAAI.cargaInicialDados(100000006, 'Renato Souza', '2014-09-30', 306, 'Banco de Dados', 60, 206, 35, 'Restaurante Unirversitário', '2025.1');
+CALL SAAI.cargaInicialDados(100000007, 'Fernanda Lima', '2016-12-05', 307, 'Inteligência Artificial', 60, 207, 50, 'Serviço de Transporte', '2025.1');
+CALL SAAI.cargaInicialDados(100000009, 'Aline Pereira', '2020-03-25', 309, 'Computação Gráfica', 60, 209, 40, 'Assistência Social', '2025.1');
+CALL SAAI.cargaInicialDados(100000010, 'João Marcos', '2013-11-11', 310, 'Criptografia', 60, 210, 45, 'Secretaria Acadêmica', '2025.1');
+CALL SAAI.cargaInicialDados(100000011, 'Larissa Fernandes', '2017-06-22', 311, 'Engenharia de Computação', 60, 211, 50, 'Auditorio Principal', '2025.1');
+CALL SAAI.cargaInicialDados(100000012, 'Thiago Rodrigues', '2015-04-17', 312, 'Computação em Nuvem', 60, 212, 35, 'Centro Esportivo', '2025.1');
+CALL SAAI.cargaInicialDados(100000013, 'Carolina Alves', '2019-10-30', 313, 'Segurança da Informação', 60, 213, 40, 'Laboratório de Idiomas', '2025.1');
 ```
 
 ### ✅ Instalando dependências
