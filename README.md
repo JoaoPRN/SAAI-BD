@@ -191,7 +191,7 @@ ALTER TABLE TD_AVL_SERVICOS ADD CONSTRAINT FK_Avaliação_serviços_2
 Esta procedure automatiza a inserção de dados nas tabelas principais do sistema: TD_PROFESSOR, TD_DISCIPLINA, TD_SALA e TD_TIPO_SERVICO.
 
 ```sql
-CREATE PROCEDURE SAAI.cargaInicialDados (
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAAI`.`cargaBD`(
   -- Dados do professor
   IN matricula_professor INT,
   IN nome_professor VARCHAR(40),
@@ -201,13 +201,17 @@ CREATE PROCEDURE SAAI.cargaInicialDados (
   IN codigo_disciplina SMALLINT,
   IN nome_disciplina VARCHAR(30),
   IN carga_horaria INT,
-
+  
   -- Dados da sala de aula
   IN numero_sala SMALLINT,
-  IN numero_capacidade SMALLINT,
-
+  IN numero_capacidade SMALLINT, 
+  
   -- Dados do serviço
-  IN nome_servico VARCHAR(30)
+  IN nome_servico VARCHAR(30),
+  
+  -- Dados da Turma
+  IN numero_semestre VARCHAR(6)
+  
 )
 BEGIN
   --  Inserir professor
@@ -221,7 +225,7 @@ BEGIN
     );
   END IF;
 
-  --  Inserir disciplina
+  --  Inserir disciplina 
   IF NOT EXISTS (
     SELECT 1 FROM TD_DISCIPLINA WHERE NUM_CODIGO_DISCIPLINA = codigo_disciplina
   ) THEN
@@ -231,8 +235,8 @@ BEGIN
       codigo_disciplina, nome_disciplina, carga_horaria
     );
   END IF;
-
-  -- Inserir Sala de Aula
+	
+  -- Inserir sala de aula
   IF NOT EXISTS (
     SELECT 1 FROM TD_SALA WHERE NUM_SALA = numero_sala
   ) THEN
@@ -241,13 +245,25 @@ BEGIN
   numero_sala, numero_capacidade
   );
   END IF;
-
+  
   -- Inserir serviço
   IF NOT EXISTS (
     SELECT 1 FROM TD_TIPO_SERVICO WHERE NOM_TIPO_SERVICO = nome_servico
   ) THEN
     INSERT INTO TD_TIPO_SERVICO (NOM_TIPO_SERVICO)
     VALUES (nome_servico);
+  END IF;
+  
+  -- Inserir turma
+   IF NOT EXISTS (
+    SELECT 1 FROM TD_TURMA WHERE 
+		NUM_CODIGO_DISCIPLINA = codigo_disciplina
+		AND NUM_MATRICULA_PROFESSOR = matricula_professor
+		AND NUM_SALA = numero_sala
+  ) THEN
+    INSERT INTO SAAI.TD_TURMA
+	(NUM_SEMESTRE, NUM_CODIGO_DISCIPLINA, NUM_MATRICULA_PROFESSOR, NUM_SALA)
+	VALUES (numero_semestre, codigo_disciplina, matricula_professor, numero_sala);
   END IF;
 END
 ```
