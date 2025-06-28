@@ -9,15 +9,11 @@ class AvaliacaoTurmasController {
     res: Response
   ) {
     try {
-      const sucesso = await AvaliacaoTurmasService.criarAvaliacaoTurmas(
-        req.body
-      );
+      await AvaliacaoTurmasService.criarAvaliacaoTurmas(req.body);
 
-      if (sucesso) {
-        res.status(201).json({ message: "Avalicao feita com sucesso!" });
-      }
-      res.status(500).json({ message: "Erro interno ao gravar avaliação" });
+      res.status(201).json({ message: "Avalicao feita com sucesso!" });
     } catch (error) {
+      console.error(error);
       res.status(500).json({ message: "Erro interno ao gravar avaliação" });
     }
   }

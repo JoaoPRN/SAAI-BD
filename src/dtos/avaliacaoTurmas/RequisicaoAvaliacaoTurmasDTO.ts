@@ -1,11 +1,10 @@
 import {
+  IsDateString,
   IsInt,
   IsString,
-  IsDateString,
-  IsOptional,
+  Max,
   MaxLength,
   Min,
-  Max,
 } from "class-validator";
 
 export class RequisicaoAvaliacaoTurmasDTO {
@@ -15,8 +14,11 @@ export class RequisicaoAvaliacaoTurmasDTO {
   @IsInt()
   codigoTurma!: number;
 
-  @IsDateString()
-  dataAvaliacao!: Date;
+  @IsDateString(
+    {},
+    { message: "Data de ingresso deve ser uma data válida (ISO)." }
+  )
+  dataAvaliacao!: string;
 
   @IsString()
   @MaxLength(250)
