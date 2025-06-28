@@ -1,5 +1,4 @@
 import { Router } from "express";
-import AlunoController from "../controller/AlunoController";
 import AvaliacaoTurmasController from "../controller/AvaliacaoTurmasController";
 import { RequisicaoAvaliacaoTurmasDTO } from "../dtos/avaliacaoTurmas/RequisicaoAvaliacaoTurmasDTO";
 import { ValidacaoMiddleware } from "../middleware/ValidacaoMiddleware";
