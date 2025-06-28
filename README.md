@@ -199,7 +199,7 @@ ALTER TABLE TD_AVL_SERVICOS ADD CONSTRAINT FK_Avaliação_serviços_2
 Esta procedure automatiza a inserção de dados nas tabelas principais do sistema: TD_PROFESSOR, TD_DISCIPLINA, TD_SALA e TD_TIPO_SERVICO.
 
 ```sql
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SAAI`.`cargaBD`(
+CREATE PROCEDURE SAAI.cargaBD(
   -- Dados do professor
   IN matricula_professor INT,
   IN nome_professor VARCHAR(40),
