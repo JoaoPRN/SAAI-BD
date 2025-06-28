@@ -1,8 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 
-import db from "../database/config";
 import alunoRoutes from "./AlunoRoutes";
-import salasRoutes from "./SalasRoutes";
 
 const router = express.Router();
 
