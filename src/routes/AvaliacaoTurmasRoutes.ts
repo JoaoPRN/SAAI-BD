@@ -1,25 +1,24 @@
-import { RequestHandler, Router } from "express";
+import { Router } from "express";
 import AlunoController from "../controller/AlunoController";
-import { RequisicaoCriarAlunoDTO } from "../dtos/alunoDTO/RequisicaoCriarAlunoDTO";
-import { ValidacaoMiddleware } from "../middleware/ValidacaoMiddleware";
-import { RequisicaoExcluirAlunoDTO } from "../dtos/alunoDTO/RequisicaoExcluirAlunoDTO";
 import AvaliacaoTurmasController from "../controller/AvaliacaoTurmasController";
+import { RequisicaoAvaliacaoTurmasDTO } from "../dtos/avaliacaoTurmas/RequisicaoAvaliacaoTurmasDTO";
+import { ValidacaoMiddleware } from "../middleware/ValidacaoMiddleware";
 
 const router = Router();
 
 router.post(
   "/avaliacao-turma",
-  ValidacaoMiddleware(RequisicaoCriarAlunoDTO),
+  ValidacaoMiddleware(RequisicaoAvaliacaoTurmasDTO),
   AvaliacaoTurmasController.criarAvaliacaoTurma
 );
 
-router.delete(
-  "/excluir-avaliacao-turma",
-  ValidacaoMiddleware(RequisicaoExcluirAlunoDTO),
-  AlunoController.excluirAluno
+router.put(
+  "/atualizar-avaliacao-turma",
+  ValidacaoMiddleware(RequisicaoAvaliacaoTurmasDTO),
+  AlunoController.listarAlunos
 );
 
-router.put("/atualizar-avaliacao-turma", AlunoController.listarAlunos);
+router.delete("/excluir-avaliacao-turma", AlunoController.excluirAluno);
 router.get("/listar-avaliacoes-turma", AlunoController.listarAlunos);
 
 export default router;
