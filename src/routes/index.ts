@@ -1,7 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
 
 import alunoRoutes from "./AlunoRoutes";
-
+import matriculaRoutes from "./MatriculaRoutes";
+import avaliacaoTurmasRoutes from "./AvaliacaoTurmasRoutes";
 const router = express.Router();
 
 const defaultRoutes = [
@@ -9,10 +10,14 @@ const defaultRoutes = [
     path: "/aluno",
     route: alunoRoutes,
   },
-  // {
-  //   path: "/salas",
-  //   route: salasRoutes,
-  // },
+  {
+    path: "/avaliacao-turmas",
+    route: avaliacaoTurmasRoutes,
+  },
+  {
+    path: "/matricula",
+    route: matriculaRoutes,
+  },
 ];
 
 defaultRoutes.forEach((route) => {

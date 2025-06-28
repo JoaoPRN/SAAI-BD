@@ -1,7 +1,7 @@
-import { Request, RequestHandler, Response } from "express";
+import { Request, Response } from "express";
 import { RequisicaoCriarAlunoDTO } from "../dtos/alunoDTO/RequisicaoCriarAlunoDTO";
-import AlunoService from "../service/AlunoService";
 import { RequisicaoExcluirAlunoDTO } from "../dtos/alunoDTO/RequisicaoExcluirAlunoDTO";
+import AlunoService from "../service/AlunoService";
 
 class AlunoController {
   static async criarAluno(

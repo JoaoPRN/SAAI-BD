@@ -8,7 +8,7 @@
     "start": "ts-node src/app.ts",
     "build": "tsc",
     "serve": "node dist/index.js",
-    "dev": "ts-node-dev src/index.ts"
+    "dev": "ts-node-dev src/app.ts"
   },
   "keywords": [],
   "author": "",

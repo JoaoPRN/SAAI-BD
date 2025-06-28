@@ -1,16 +1,25 @@
 class Matricula {
-  matriculaAluno: number;
-  codigoTurma: number;
-  indicadorAvaliacao: Boolean;
+  nomeProfessor: string;
+  nomeDisciplina: string;
+  cargaHoraria: number;
+  numeroSala: number;
+  capacidadeSala: number;
+  numeroSemestre: string;
 
   constructor(
-    matriculaAluno: number,
-    codigoTurma: number,
-    indicadorAvaliacao: Boolean
+    nomeProfessor: string,
+    nomeDisciplina: string,
+    cargaHoraria: number,
+    numeroSala: number,
+    capacidadeSala: number,
+    numeroSemestre: string
   ) {
-    this.matriculaAluno = matriculaAluno;
-    this.codigoTurma = codigoTurma;
-    this.indicadorAvaliacao = indicadorAvaliacao;
+    this.nomeProfessor = nomeProfessor;
+    this.nomeDisciplina = nomeDisciplina;
+    this.cargaHoraria = cargaHoraria;
+    this.numeroSala = numeroSala;
+    this.capacidadeSala = capacidadeSala;
+    this.numeroSemestre = numeroSemestre;
   }
 }
 

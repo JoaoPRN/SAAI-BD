@@ -1,12 +1,11 @@
 import { Router } from "express";
+import MatriculaController from "../controller/MatriculaController";
 
 const router = Router();
 
-router.put(
-  "/atualizar-avaliacao-turma",
-  ValidacaoMiddleware(RequisicaoAvaliacaoTurmasDTO),
-  AlunoController.listarAlunos
+router.get(
+  "/consultar-matricula-aluno",
+  MatriculaController.consultaAvaliacaoTurma
 );
 
-router.delete("/excluir-avaliacao-turma", AlunoController.excluirAluno);
-router.get("/listar-avaliacoes-turma", AlunoController.listarAlunos);
+export default router;
