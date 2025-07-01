@@ -9,44 +9,44 @@ import {
   IsOptional,
 } from "class-validator";
 
-export class RequisicaoCriarAvaliacaoSalaDTO {
+export class RequisicaoAtualizarAvaliacaoSalaDTO {
 
   @IsOptional()
   @IsString({ message: "Comentário deve ser uma string." })
   @Length(0, 250, { message: "Comentário deve ter no máximo 250 caracteres." })
   comentario?: string;
 
-  @IsDefined({ message: "Nota de acessibilidade é obrigatória." })
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
   notaAcessibilidade!: number;
 
-  @IsDefined({ message: "Nota de infraestrutura é obrigatória." })
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
   notaInfraestrutura!: number;
 
-  @IsDefined({ message: "Nota de limpeza é obrigatória." })
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
   notaLimpeza!: number;
 
-  @IsDefined({ message: "Nota de conforto é obrigatória." })
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
   notaConforto!: number;
 
-  @IsDefined({ message: "Nota de iluminação é obrigatória." })
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
   notaIluminacao!: number;
 
-  @IsDefined({ message: "Nota de acústica é obrigatória." })
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)

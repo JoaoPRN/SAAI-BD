@@ -3,6 +3,7 @@ import config from "../database/config";
 import AvaliacaoSala from "../models/AvaliacaoSalaModels";
 import AvaliacaoSalaRepository from "../repository/AvaliacaoSalaRepository";
 import { RequisicaoCriarAvaliacaoSalaDTO } from "../dtos/avaliacaoSala/RequisicaoCriarAvaliacaoSalaDTO";
+import { RequisicaoAtualizarAvaliacaoSalaDTO } from "../dtos/avaliacaoSala/RequisicaoAtualizarAvaliacaoSalaDTO";
 
 class AvaliacaoSalaService {
   static async criarAvaliacaoSala(dados: RequisicaoCriarAvaliacaoSalaDTO) {
@@ -59,6 +60,32 @@ class AvaliacaoSalaService {
     }
   }
 
+static async atualizarAvaliacaoSala(
+  matricula: number,
+  sala: number,
+  semestre: string,
+  dadosAtualizados: RequisicaoAtualizarAvaliacaoSalaDTO
+) {
+  const connection = await mysql.createConnection(config.db);
+  try {
+    await connection.beginTransaction();
+
+    await AvaliacaoSalaRepository.atualizar(
+      connection,
+      matricula,
+      sala,
+      semestre,
+      dadosAtualizados
+    );
+
+    await connection.commit();
+  } catch (error) {
+    await connection.rollback();
+    throw error;
+  } finally {
+    await connection.end();
+  }
+}
 
 static async excluirAvaliacaoSala(matricula: number, sala: number, semestre: number) {
   const connection = await mysql.createConnection(config.db);
@@ -78,8 +105,11 @@ static async excluirAvaliacaoSala(matricula: number, sala: number, semestre: num
 
 
   static async listarAvaliacaoSalas() {
-    return await AvaliacaoSalaRepository.listar();
+    const avaliacoes = await AvaliacaoSalaRepository.listar();
+    console.log(avaliacoes);
+    return avaliacoes;
   }
+
 }
 
 export default AvaliacaoSalaService;
