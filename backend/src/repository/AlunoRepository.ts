@@ -15,8 +15,6 @@ class AlunoRepository {
     ];
 
     await connection.execute(sql, values);
-
-    // return result.affectedRows > 0;
   }
 
   static async listar() {
