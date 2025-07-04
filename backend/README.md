@@ -7,6 +7,7 @@
 - MySQL Server rodando localmente
 
 - Comando para instalar todos os requisitos:
+
 ```
   npm i nodejs mysql express typescript ts-node-dev react dotenv
 ```
@@ -24,6 +25,7 @@
 ```sql
   CREATE DATABASE SAAI;
 ```
+
 E indicar que vai usar o banco:
 
 ```sql
@@ -48,12 +50,13 @@ CREATE TABLE TD_ALUNO (
 CREATE TABLE TD_TELEFONE (
   NUM_TELEFONE VARCHAR(11) NOT NULL,
   NUM_MATRICULA_ALUNO INTEGER NOT NULL,
-  PRIMARY KEY (NUM_MATRICULA_ALUNO, NUM_TELEFONE)
+  PRIMARY KEY (NUM_MATRICULA_ALUNO, NUM_TELEFONE),
+  UNIQUE (NOM_DISCPLINA)
 );
 
 CREATE TABLE TD_SALA (
   NUM_SALA SMALLINT PRIMARY KEY,
-  NUM_CAPACIDADE SMALLINT, 
+  NUM_CAPACIDADE SMALLINT,
   CHECK (NUM_CAPACIDADE > 0)
 );
 
@@ -88,7 +91,7 @@ CREATE TABLE TD_PROFESSOR (
 CREATE TABLE TD_DISCIPLINA (
   NUM_CODIGO_DISCIPLINA SMALLINT PRIMARY KEY,
   NUM_CARGA_HORARIA INTEGER NOT NULL,
-  NOM_DISCIPLINA VARCHAR(30) NOT NULL, 
+  NOM_DISCIPLINA VARCHAR(30) NOT NULL,
   CHECK (NUM_CARGA_HORARIA > 0),
   UNIQUE (NOM_DISCPLINA)
 );
@@ -128,7 +131,7 @@ CREATE TABLE TD_AVL_TURMA (
 CREATE TABLE TD_MATRICULA (
   NUM_MATRICULA_ALUNO INTEGER NOT NULL,
   COD_ID_TURMA INTEGER NOT NULL,
-  COD_IND_AVALIACAO BOOLEAN NOT NULL,
+  COD_IND_AVALIACAO BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (NUM_MATRICULA_ALUNO, COD_ID_TURMA)
 );
 
@@ -209,17 +212,17 @@ CREATE PROCEDURE SAAI.cargaBD(
   IN codigo_disciplina SMALLINT,
   IN nome_disciplina VARCHAR(30),
   IN carga_horaria INT,
-  
+
   -- Dados da sala de aula
   IN numero_sala SMALLINT,
-  IN numero_capacidade SMALLINT, 
-  
+  IN numero_capacidade SMALLINT,
+
   -- Dados do serviço
   IN nome_servico VARCHAR(30),
-  
+
   -- Dados da Turma
   IN numero_semestre VARCHAR(6)
-  
+
 )
 BEGIN
   --  Inserir professor
@@ -233,7 +236,7 @@ BEGIN
     );
   END IF;
 
-  --  Inserir disciplina 
+  --  Inserir disciplina
   IF NOT EXISTS (
     SELECT 1 FROM TD_DISCIPLINA WHERE NUM_CODIGO_DISCIPLINA = codigo_disciplina
   ) THEN
@@ -243,7 +246,7 @@ BEGIN
       codigo_disciplina, nome_disciplina, carga_horaria
     );
   END IF;
-	
+
   -- Inserir sala de aula
   IF NOT EXISTS (
     SELECT 1 FROM TD_SALA WHERE NUM_SALA = numero_sala
@@ -253,7 +256,7 @@ BEGIN
   numero_sala, numero_capacidade
   );
   END IF;
-  
+
   -- Inserir serviço
   IF NOT EXISTS (
     SELECT 1 FROM TD_TIPO_SERVICO WHERE NOM_TIPO_SERVICO = nome_servico
@@ -261,10 +264,10 @@ BEGIN
     INSERT INTO TD_TIPO_SERVICO (NOM_TIPO_SERVICO)
     VALUES (nome_servico);
   END IF;
-  
+
   -- Inserir turma
    IF NOT EXISTS (
-    SELECT 1 FROM TD_TURMA WHERE 
+    SELECT 1 FROM TD_TURMA WHERE
 		NUM_CODIGO_DISCIPLINA = codigo_disciplina
 		AND NUM_MATRICULA_PROFESSOR = matricula_professor
 		AND NUM_SALA = numero_sala
@@ -317,7 +320,9 @@ Crie um arquivo .env na raiz do projeto com o seguinte conteúdo:
 ```bash
     npm run dev
 ```
+
 Ou:
+
 ```bash
     npm start
 ```
@@ -327,6 +332,7 @@ O servidor será iniciado na porta definida no .env.
 Exemplo: http://localhost:3000
 
 ### ✅ Bonus
+
 Pra fazer push em develop (ou na main) de forma rápida.
 
 ```
