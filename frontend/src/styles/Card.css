@@ -1,0 +1,64 @@
+.discipline-wrapper {
+  padding: 0 2rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.card {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 2px solid #007bff33;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card.completed {
+  background: #f4fdf4;
+}
+
+.codigo {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.card-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+}
+
+.pending {
+  background: #ffeeba;
+  color: #856404;
+}
+
+.done {
+  background: #d4edda;
+  color: #155724;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  background: #0062ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

@@ -3,9 +3,9 @@ import MatriculaController from "../controller/MatriculaController";
 
 const router = Router();
 
-router.get(
+router.post(
   "/consultar-matricula-aluno",
-  MatriculaController.consultaAvaliacaoTurma
+  MatriculaController.consultarMatricula
 );
 
 export default router;
