@@ -8,7 +8,8 @@
     "start": "ts-node src/app.ts",
     "build": "tsc",
     "serve": "node dist/index.js",
-    "dev": "ts-node-dev src/app.ts"
+    "dev": "ts-node-dev src/app.ts",
+    "carga": "ts-node scripts/cargaDados-sql.ts"
   },
   "keywords": [],
   "author": "",
