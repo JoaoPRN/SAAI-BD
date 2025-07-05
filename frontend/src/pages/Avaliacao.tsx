@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Tabs.css";
 import DisciplinasCard from "../components/DisciplinasCard";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Avaliacao = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<
     "disciplinas" | "salas" | "servicos"
   >("disciplinas");
-
   const location = useLocation();
   const { matriculaAluno } = location.state || {};
   const [gradeHoraria, setgradeHoraria] = useState<
@@ -32,6 +32,14 @@ const Avaliacao = () => {
       }
     });
   }, []);
+
+  const handleCardClick = (matricula: any) => {
+    console.log("Card clicado:", matricula);
+    console.log("matricula aluno: ", matriculaAluno);
+    navigate("/avaliacaoDisciplina", {
+      state: { dados: matricula, codigoMatricula: matriculaAluno },
+    });
+  };
 
   return (
     <div style={styles.page}>
@@ -64,17 +72,32 @@ const Avaliacao = () => {
           🛠 Avaliar Serviços
         </button>
       </div>
-      <div className="discipline-wrapper">
-        <p>
-          Avalie as disciplinas em que você está matriculado para ajudar outros
-          estudantes
-        </p>
-        {gradeHoraria && <DisciplinasCard matriculaAluno={gradeHoraria} />}
+      {activeTab === "disciplinas" && (
+        <div className="discipline-wrapper">
+          <p>
+            Avalie as disciplinas em que você está matriculado para ajudar
+            outros estudantes
+          </p>
 
-        {/* <div className="card-grid">
-          {gradeHoraria && <DisciplinasCard data={gradeHoraria} />}
-        </div> */}
-      </div>
+          <div className="card-grid">
+            {gradeHoraria &&
+              gradeHoraria.map((turma, index) => (
+                <div
+                  key={index}
+                  className="card-button"
+                  onClick={() => handleCardClick(turma)}
+                  role="button"
+                  tabIndex={0}
+                  // onKeyDown={(e) =>
+                  //   e.key === "Enter" && handleCardClick(matricula)
+                  // }
+                >
+                  <DisciplinasCard key={index} matriculaAluno={turma} />
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -95,7 +118,7 @@ async function ListaDisciplinasMatriculadas(matricula: number) {
     );
 
     const data = await response.json();
-    return data;
+    return data.matriculaAluno;
   } catch (error) {
     console.error("Erro na requisição:", error);
   }

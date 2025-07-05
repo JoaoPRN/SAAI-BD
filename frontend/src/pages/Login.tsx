@@ -9,14 +9,12 @@ const LoginPage: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const alunos = await listaAlunos();
-    console.log(alunos);
     const encontrarAluno = alunos.listaAlunos.find(
       (dados: { [x: string]: string }) =>
         dados["NUM_MATRICULA_ALUNO"] == usuario
     );
-    console.log(encontrarAluno);
+
     if (encontrarAluno) {
-      console.log(usuario);
       navigate("/avaliacao", { state: { matriculaAluno: usuario } });
     }
   };
