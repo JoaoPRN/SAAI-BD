@@ -341,5 +341,3 @@ Pra fazer push em develop (ou na main) de forma rápida.
   git pull origin develop
   git push origin sua-branch:develop
 ```
-
-Isso garante que você está na sua branch, atualiza o repositório local, faz merge na develop (ou main) e envia as mudanças para o repositório remoto.
