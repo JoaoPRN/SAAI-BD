@@ -3,6 +3,7 @@ import config from "../database/config";
 import { RequisicaoAvaliacaoServicoDTO } from "../dtos/avaliacaoServicos/RequisicaoAvaliacaoServicoDTO";
 import AvaliacaoServico from "../models/AvaliacaoServico";
 import AvaliacaoServicoRepository from "../repository/AvaliacaoServicoRepository";
+import db from "../database/db";
 
 class AvaliacaoServicoService {
   static async criarAvaliacaoServico(dados: RequisicaoAvaliacaoServicoDTO) {
@@ -16,7 +17,7 @@ class AvaliacaoServicoService {
         new Date(data),
         nota,
         texto
-      );
+      );   
       await AvaliacaoServicoRepository.inserir(connection, avaliacao);
       await connection.commit();
     } catch (error) {
@@ -32,15 +33,22 @@ class AvaliacaoServicoService {
   }
 
   static async atualizarAvaliacaoServico(dados: RequisicaoAvaliacaoServicoDTO) {
-    return await AvaliacaoServicoRepository.atualizar(
-      new AvaliacaoServico(
+
+    try {
+      const avaliacaoParaAtualizar = new AvaliacaoServico(
         dados.matriculaAluno,
         dados.codTipoServico,
-        new Date(dados.data),
+        new Date(dados.data), 
         dados.nota,
         dados.texto
-      )
-    );
+      );
+
+      const sucesso = await AvaliacaoServicoRepository.atualizar(avaliacaoParaAtualizar);
+      
+      return sucesso;
+    } catch (error) {
+      throw error;
+    }
   }
 
   static async excluirAvaliacaoServico({ matriculaAluno, codTipoServico }: { matriculaAluno: number, codTipoServico: number }) {

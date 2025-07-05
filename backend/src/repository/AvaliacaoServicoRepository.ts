@@ -31,9 +31,11 @@ class AvaliacaoServicoRepository {
     }
 
     static async atualizar(avaliacao: AvaliacaoServico) {
-        const sql = `UPDATE SAAI.TD_AVL_SERVICOS 
+
+        const sql = `UPDATE SAAI.TD_AVL_SERVICOS
             SET DAT_AVALIACAO = ?, TXT_COMENTARIO = ?, NUM_NOTA_SERVICO = ?
             WHERE NUM_MATRICULA_ALUNO = ? AND NUM_ID_SERVICO = ?`;
+
         const values = [
             avaliacao.data.toISOString().split("T")[0],
             avaliacao.texto ?? null,
@@ -41,8 +43,13 @@ class AvaliacaoServicoRepository {
             avaliacao.matriculaAluno,
             avaliacao.codTipoServico,
         ];
-        const [result]: any = await db.query(sql, values);
-        return result.affectedRows > 0;
+
+        try {
+            const [rows]: any = await db.query(sql, values);
+            return rows.affectedRows > 0;
+        } catch (error) {
+            throw error;
+        }
     }
 }
 

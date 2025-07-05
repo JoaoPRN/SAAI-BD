@@ -8,11 +8,11 @@ class AvaliacaoServicoController {
         res: Response
     ) {
         try {
-        await AvaliacaoServicoService.criarAvaliacaoServico(req.body);
-        res.status(201).json({ message: "Avaliação de serviço criada com sucesso!" });
+            await AvaliacaoServicoService.criarAvaliacaoServico(req.body);
+            res.status(201).json({ message: "Avaliação de serviço criada com sucesso!" });
         } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Erro ao criar avaliação de serviço" });
+            console.error(error);
+            res.status(500).json({ message: "Erro ao criar avaliação de serviço" });
         }
     }
 
@@ -21,10 +21,10 @@ class AvaliacaoServicoController {
         res: Response
     ) {
         try {
-        const avaliacaoServico = await AvaliacaoServicoService.consultaAvaliacaoServico(req.body);
-        res.status(200).json({ avaliacaoServico });
+            const avaliacaoServico = await AvaliacaoServicoService.consultaAvaliacaoServico(req.body);
+            res.status(200).json({ avaliacaoServico });
         } catch (error) {
-        res.status(500).json({ message: "Avaliação de serviço não encontrada!" });
+            res.status(500).json({ message: "Avaliação de serviço não encontrada!" });
         }
     }
 
@@ -33,14 +33,14 @@ class AvaliacaoServicoController {
         res: Response
     ) {
         try {
-        const sucesso = await AvaliacaoServicoService.atualizarAvaliacaoServico(req.body);
-        if (sucesso) {
-            res.status(200).json({ message: "Avaliação de serviço atualizada com sucesso!" });
-        } else {
-            res.status(404).json({ message: "Avaliação de serviço não encontrada." });
-        }
+            const sucesso = await AvaliacaoServicoService.atualizarAvaliacaoServico(req.body);
+            if (sucesso) {
+                res.status(200).json({ message: "Avaliação de serviço atualizada com sucesso!" });
+            } else {
+                res.status(404).json({ message: "Avaliação de serviço não encontrada." });
+            }
         } catch (error) {
-        res.status(500).json({ message: "Erro ao atualizar avaliação de serviço" });
+            res.status(500).json({ message: "Erro ao atualizar avaliação de serviço" });
         }
     }
 
@@ -49,14 +49,14 @@ class AvaliacaoServicoController {
         res: Response
     ) {
         try {
-        const sucesso = await AvaliacaoServicoService.excluirAvaliacaoServico(req.body);
-        if (sucesso) {
-            res.status(200).json({ message: "Avaliação de serviço excluída com sucesso!" });
-        } else {
-            res.status(404).json({ message: "Avaliação de serviço não encontrada." });
-        }
+            const sucesso = await AvaliacaoServicoService.excluirAvaliacaoServico(req.body);
+            if (sucesso) {
+                res.status(200).json({ message: "Avaliação de serviço excluída com sucesso!" });
+            } else {
+                res.status(404).json({ message: "Avaliação de serviço não encontrada." });
+            }
         } catch (error) {
-        res.status(500).json({ message: "Erro ao excluir avaliação de serviço" });
+            res.status(500).json({ message: "Erro ao excluir avaliação de serviço" });
         }
     }
 }

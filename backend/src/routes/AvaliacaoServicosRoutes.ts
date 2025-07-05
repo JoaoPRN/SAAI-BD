@@ -18,10 +18,12 @@ router.put(
 );
 
 router.delete(
-    "/excluir",
+    "/excluir/:matriculaAluno/:codTipoServico",
+    ValidacaoMiddleware(RequisicaoAvaliacaoServicoDTO),
     AvaliacaoServicoController.excluirAvaliacaoServico
 );
 
+//att a rota
 router.get(
     "/consultar",
     AvaliacaoServicoController.consultaAvaliacaoServico
