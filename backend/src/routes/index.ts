@@ -3,6 +3,7 @@ import express, { NextFunction, Request, Response } from "express";
 import alunoRoutes from "./AlunoRoutes";
 import matriculaRoutes from "./MatriculaRoutes";
 import avaliacaoTurmasRoutes from "./AvaliacaoTurmasRoutes";
+import avaliacaoServicoRoutes from "./AvaliacaoServicosRoutes";
 const router = express.Router();
 
 const defaultRoutes = [
@@ -17,6 +18,10 @@ const defaultRoutes = [
   {
     path: "/matricula",
     route: matriculaRoutes,
+  },
+  {
+    path: "/avaliacao-servicos", // sem dado
+    route: avaliacaoServicoRoutes,
   },
 ];
 

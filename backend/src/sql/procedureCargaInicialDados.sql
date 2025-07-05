@@ -5,11 +5,13 @@ CREATE PROCEDURE SAAI.cargaInicialBD(
   IN dt_ingresso DATE,
   IN dt_nascimento DATE,
   IN nome_curso VARCHAR(20),
+  IN aluno_foto BLOB,
 
   -- Dados do professor
   IN matricula_professor INT,
   IN nome_professor VARCHAR(40),
   IN dt_ingresso_professor DATE,
+  IN professor_foto BLOB,
 
   -- Dados da disciplina
   IN codigo_disciplina SMALLINT,
@@ -38,14 +40,16 @@ BEGIN
     NOM_ALUNO,
     DT_INGRESSO,
     DT_NASCIMENTO,
-    NOM_CURSO
+    NOM_CURSO,
+    FOTO_ALUNO
   )
   VALUES (
     numero_matricula_aluno,
     nome_aluno,
     dt_ingresso,
     dt_nascimento,
-    nome_curso
+    nome_curso,
+    aluno_foto
   );
   END IF;
 
