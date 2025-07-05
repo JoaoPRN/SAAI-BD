@@ -2,16 +2,16 @@ import { Request, Response } from "express";
 import MatriculaService from "../service/MatriculaService";
 
 class MatriculaController {
-  static async consultaAvaliacaoTurma(req: Request, res: Response) {
+  static async consultarMatricula(req: Request, res: Response) {
     try {
-      const avaliacaoTurma = await MatriculaService.consultaMatricula(
+      const matriculaAluno = await MatriculaService.consultaMatricula(
         req.body.matriculaAluno
       );
 
-      res.status(201).json({ avaliacaoTurma });
+      res.status(201).json({ matriculaAluno });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Avaliacao não encontrada!" });
+      res.status(500).json({ message: "Matricula não encontrada!" });
     }
   }
 }

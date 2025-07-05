@@ -47,9 +47,12 @@ class AlunoController {
       } else {
         res.status(404).json({ message: "Aluno não encontrado." });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao excluir aluno:", error);
-      res.status(500).json({ message: "Erro interno ao excluir aluno." });
+      res.status(500).json({
+        message: "Erro interno ao excluir aluno.",
+        erro: error.sqlMessage,
+      });
     }
   }
 }

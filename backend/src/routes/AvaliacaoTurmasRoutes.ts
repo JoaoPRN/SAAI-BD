@@ -6,7 +6,7 @@ import { ValidacaoMiddleware } from "../middleware/ValidacaoMiddleware";
 const router = Router();
 
 router.post(
-  "/avaliacao-turma",
+  "/avaliar-turma",
   ValidacaoMiddleware(RequisicaoAvaliacaoTurmasDTO),
   AvaliacaoTurmasController.criarAvaliacaoTurma
 );

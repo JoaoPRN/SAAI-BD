@@ -11,10 +11,13 @@ class AvaliacaoTurmasController {
     try {
       await AvaliacaoTurmasService.criarAvaliacaoTurmas(req.body);
 
-      res.status(201).json({ message: "Avalicao feita com sucesso!" });
-    } catch (error) {
+      res.status(201).json({ message: "Avaliação feita com sucesso!" });
+    } catch (error: any) {
       console.error(error);
-      res.status(500).json({ message: "Erro interno ao gravar avaliação" });
+      res.status(500).json({
+        message: "Erro interno ao gravar avaliação",
+        erro: error.sqlMessage,
+      });
     }
   }
 

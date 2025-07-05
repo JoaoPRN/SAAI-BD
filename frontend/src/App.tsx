@@ -1,35 +1,17 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; 
-import AlunosListarPage from './pages/AlunoListarPage';  // Só teste
-import './App.css';  
-
-const HomePage: React.FC = () => {
-  return (
-    <div>
-      <h1>Página Inicial!</h1>
-      <p>Texto num parágrafo</p>
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-        </ul>
-      </nav>
-    </div>
-  );
-};
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import "./App.css";
+import Login from "./pages/Login";
+import Avaliacao from "./pages/Avaliacao";
+import AvaliacaoDisciplina from "./pages/AvaliacaoDisciplina";
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-          </ul>
-        </nav>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/avaliacao" element={<Avaliacao />} />
+        <Route path="/avaliacaoDisciplina" element={<AvaliacaoDisciplina />} />
+      </Routes>
     </Router>
   );
 }

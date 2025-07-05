@@ -4,19 +4,18 @@ import { useNavigate } from "react-router-dom";
 const LoginPage: React.FC = () => {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
-    const navigate = useNavigate();
     e.preventDefault();
     const alunos = await listaAlunos();
-
     const encontrarAluno = alunos.listaAlunos.find(
       (dados: { [x: string]: string }) =>
         dados["NUM_MATRICULA_ALUNO"] == usuario
     );
 
     if (encontrarAluno) {
-      console.log("encontrou");
+      navigate("/avaliacao", { state: { matriculaAluno: usuario } });
     }
   };
 
@@ -106,7 +105,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "0.75rem",
     fontSize: "1rem",
     backgroundColor: "#4CAF50",
-    color: "#fff",
+    color: "#1E90FF",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
