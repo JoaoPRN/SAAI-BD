@@ -1,26 +1,32 @@
 import "../styles/Card.css";
 
-type Props = {
-  data: {
-    nome: string;
-    codigo: string;
-    professor: string;
-    horario: string;
-    sala: string;
-    status: "pendente" | "avaliado";
-  };
-};
+// type DisciplinaMatriculada = [
+//   {
+//     NOM_DISCIPLINA: string;
+//     NOM_PROFESSOR: string;
+//     NUM_CAPACIDADE: string;
+//     NUM_CARGA_HORARIA: string;
+//     NUM_MATRICULA_ALUNO: string;
+//     NUM_SALA: string;
+//     NUM_SEMESTRE: string;
+//   }
+// ];
 
-export default function DisciplinasCard({ data }: Props) {
-  const { nome, codigo, professor, horario, sala, status } = data;
+// type Props = {
+//   matriculaAluno: DisciplinaMatriculada[];
+// };
 
+export default function DisciplinasCard({ matriculaAluno }: any) {
+  console.log(matriculaAluno.matriculaAluno[0]);
+
+  //   const primeira = matriculaAluno.DisciplinaMatriculada[0];
   return (
     <div className={`card ${status === "avaliado" ? "completed" : ""}`}>
-      <h3>{nome}</h3>
-      <p className="codigo">{codigo}</p>
-      <p>👤 {professor}</p>
-      <p>🕒 {horario}</p>
-      <p>📍 {sala}</p>
+      {/* <h3>{primeira.NOM_DISCIPLINA}</h3> */}
+      {/* <p className="codigo">{codigo}</p> */}
+      {/* <p>👤 {matriculaAluno[0].NOM_PROFESSOR}</p>
+      <p>🕒 {matriculaAluno[0].NUM_CARGA_HORARIA}</p>
+      <p>📍 {matriculaAluno[0].NUM_SALA}</p> */}
 
       <div className="card-footer">
         {status === "pendente" ? (

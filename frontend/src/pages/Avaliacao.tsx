@@ -10,20 +10,25 @@ const Avaliacao = () => {
 
   const location = useLocation();
   const { matriculaAluno } = location.state || {};
-  const [gradeHoraria, setgradeHoraria] = useState<{
-    nome: string;
-    codigo: string;
-    professor: string;
-    horario: string;
-    sala: string;
-    status: "pendente" | "avaliado";
-  } | null>(null);
+  const [gradeHoraria, setgradeHoraria] = useState<
+    | [
+        {
+          NOM_DISCIPLINA: string;
+          NOM_PROFESSOR: string;
+          NUM_CAPACIDADE: string;
+          NUM_CARGA_HORARIA: string;
+          NUM_MATRICULA_ALUNO: string;
+          NUM_SALA: string;
+          NUM_SEMESTRE: string;
+        }
+      ]
+    | null
+  >(null);
 
   useEffect(() => {
     ListaDisciplinasMatriculadas(matriculaAluno).then((dados) => {
       if (dados) {
         setgradeHoraria(dados);
-        console.log(dados);
       }
     });
   }, []);
@@ -64,7 +69,7 @@ const Avaliacao = () => {
           Avalie as disciplinas em que você está matriculado para ajudar outros
           estudantes
         </p>
-        {gradeHoraria && <DisciplinasCard data={gradeHoraria} />}
+        {gradeHoraria && <DisciplinasCard matriculaAluno={gradeHoraria} />}
 
         {/* <div className="card-grid">
           {gradeHoraria && <DisciplinasCard data={gradeHoraria} />}
