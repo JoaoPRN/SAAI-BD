@@ -16,7 +16,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.status(statusCode).json({ message: err.message });
   return;
 });
-console.log("Porta usada:", port);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

@@ -30,5 +30,13 @@
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoaoPRN/SAAI-BD.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JoaoPRN/SAAI-BD/issues"
+  },
+  "homepage": "https://github.com/JoaoPRN/SAAI-BD#readme"
 }
