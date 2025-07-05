@@ -3,8 +3,8 @@ import Aluno from "../models/Aluno";
 
 class AlunoRepository {
   static async inserir(connection: any, aluno: Aluno) {
-    const sql = `INSERT INTO SAAI.TD_ALUNO (NUM_MATRICULA_ALUNO, NOM_ALUNO, DT_INGRESSO, DT_NASCIMENTO, NOM_CURSO)
-            VALUES (?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO SAAI.TD_ALUNO (NUM_MATRICULA_ALUNO, NOM_ALUNO, DT_INGRESSO, DT_NASCIMENTO, NOM_CURSO, FOTO_ALUNO)
+            VALUES (?, ?, ?, ?, ?, ?)`;
 
     const values = [
       aluno.matricula,
@@ -12,6 +12,7 @@ class AlunoRepository {
       aluno.dataIngresso.toISOString().split("T")[0],
       aluno.dataNascimento.toISOString().split("T")[0],
       aluno.curso,
+      aluno.fotoAluno ?? null,
     ];
 
     await connection.execute(sql, values);
