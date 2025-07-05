@@ -14,6 +14,7 @@ app.use(
   })
 );
 app.use(express.json());
+
 app.use("/", route);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
