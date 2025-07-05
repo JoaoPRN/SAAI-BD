@@ -25,7 +25,7 @@ const defaultRoutes = [
     route: avaliacaoSalaAulaRoutes,
   },
   {
-    path: "/avaliacao-servicos", // sem dado
+    path: "/avaliacao-servicos", 
     route: avaliacaoServicoRoutes,
   },
 ];

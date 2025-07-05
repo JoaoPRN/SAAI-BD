@@ -35,7 +35,7 @@ async function executarCargaInicial() {
   const dados = JSON.parse(fileContent);
   try {
     const sqlCargaInicial =
-      "CALL SAAI.cargaInicialBD(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      "CALL SAAI.cargaInicialBD(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     for (const dado of dados) {
       const values = [
@@ -44,10 +44,12 @@ async function executarCargaInicial() {
         dado.dt_ingresso,
         dado.dt_nascimento,
         dado.nome_curso,
+        dado.aluno_foto,
 
         dado.matricula_professor,
         dado.nome_professor,
         dado.dt_ingresso_professor,
+        dado.professor_foto,
 
         dado.codigo_disciplina,
         dado.nome_disciplina,

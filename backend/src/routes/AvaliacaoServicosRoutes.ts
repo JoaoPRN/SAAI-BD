@@ -6,24 +6,24 @@ import { ValidacaoMiddleware } from "../middleware/ValidacaoMiddleware";
 const router = Router();
 
 router.post(
-    "/avaliacao-servico",
+    "/avaliar",
     ValidacaoMiddleware(RequisicaoAvaliacaoServicoDTO),
     AvaliacaoServicoController.criarAvaliacaoServico
 );
 
 router.put(
-    "/atualizar-avaliacao-servico",
+    "/atualizar",
     ValidacaoMiddleware(RequisicaoAvaliacaoServicoDTO),
     AvaliacaoServicoController.atualizarAvaliacaoServico
 );
 
 router.delete(
-    "/excluir-avaliacao-servico",
+    "/excluir",
     AvaliacaoServicoController.excluirAvaliacaoServico
 );
 
 router.get(
-    "/consultar-avaliacao-servico",
+    "/consultar",
     AvaliacaoServicoController.consultaAvaliacaoServico
 );
 
