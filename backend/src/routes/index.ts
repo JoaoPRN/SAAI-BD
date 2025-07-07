@@ -5,6 +5,7 @@ import matriculaRoutes from "./MatriculaRoutes";
 import avaliacaoTurmasRoutes from "./AvaliacaoTurmasRoutes";
 import avaliacaoServicoRoutes from "./AvaliacaoServicosRoutes";
 import avaliacaoSalaAulaRoutes from "./AvaliacaoSalaRoutes";
+
 const router = express.Router();
 
 const defaultRoutes = [
@@ -25,7 +26,7 @@ const defaultRoutes = [
     route: avaliacaoSalaAulaRoutes,
   },
   {
-    path: "/avaliacao-servicos", 
+    path: "/avaliacao-servicos",
     route: avaliacaoServicoRoutes,
   },
 ];

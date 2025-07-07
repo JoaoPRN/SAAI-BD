@@ -10,16 +10,25 @@ class AlunoService {
     const connection = await mysql.createConnection(config.db);
     try {
       await connection.beginTransaction();
-      const { matricula, nome, curso, dataIngresso, dataNascimento, telefone, foto } =
-        dados;
+      const {
+        matricula,
+        nome,
+        curso,
+        dataIngresso,
+        dataNascimento,
+        telefone,
+        foto,
+      } = dados;
+
+      console.log(telefone);
 
       const novoAluno = new Aluno(
         matricula,
         nome,
         curso,
         new Date(dataIngresso),
-        new Date(dataNascimento), 
-        foto,
+        new Date(dataNascimento),
+        foto
       );
 
       await AlunoRepository.inserir(connection, novoAluno);

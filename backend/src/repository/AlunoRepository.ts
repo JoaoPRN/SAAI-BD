@@ -6,13 +6,14 @@ class AlunoRepository {
     const sql = `INSERT INTO SAAI.TD_ALUNO (NUM_MATRICULA_ALUNO, NOM_ALUNO, DT_INGRESSO, DT_NASCIMENTO, NOM_CURSO, FOTO_ALUNO)
             VALUES (?, ?, ?, ?, ?, ?)`;
 
+    console.log(aluno);
     const values = [
       aluno.matricula,
       aluno.nome,
       aluno.dataIngresso.toISOString().split("T")[0],
       aluno.dataNascimento.toISOString().split("T")[0],
       aluno.curso,
-      aluno.fotoAluno ?? null,
+      Buffer.isBuffer(aluno.fotoAluno) ? aluno.fotoAluno : null,
     ];
 
     await connection.execute(sql, values);
