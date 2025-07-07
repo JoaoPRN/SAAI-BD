@@ -11,6 +11,16 @@
 ```
   npm i nodejs mysql express typescript ts-node-dev react dotenv
 ```
+- Instalação do swgger
+
+```
+npm install swagger-jsdoc swagger-ui-express
+```
+e tipos:
+```
+npm install --save-dev @types/swagger-jsdoc @types/swagger-ui-express
+```
+
 
 ## ✅ Configuração do Banco de Dados
 
@@ -349,3 +359,5 @@ Pra fazer push em develop (ou na main) de forma rápida.
   git pull origin develop
   git push origin sua-branch:develop
 ```
+
+

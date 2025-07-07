@@ -10,6 +10,8 @@ const app = express();
 const port = db.port;
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.json());
+
 app.use(
   cors({
     origin: "*",
@@ -17,8 +19,6 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-app.use(express.json());
 
 const swaggerOptions = {
   swaggerDefinition: {
