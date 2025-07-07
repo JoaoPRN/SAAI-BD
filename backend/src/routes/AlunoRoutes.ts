@@ -3,11 +3,13 @@ import AlunoController from "../controller/AlunoController";
 import { RequisicaoCriarAlunoDTO } from "../dtos/alunoDTO/RequisicaoCriarAlunoDTO";
 import { ValidacaoMiddleware } from "../middleware/ValidacaoMiddleware";
 import { RequisicaoExcluirAlunoDTO } from "../dtos/alunoDTO/RequisicaoExcluirAlunoDTO";
+import upload from "../middleware/uploadMiddleware"
 
 const router = Router();
 
 router.post(
   "/criar-aluno",
+  upload.single("foto"), 
   ValidacaoMiddleware(RequisicaoCriarAlunoDTO),
   AlunoController.criarAluno
 );

@@ -20,7 +20,11 @@ e tipos:
 ```
 npm install --save-dev @types/swagger-jsdoc @types/swagger-ui-express
 ```
-
+Para FOTO
+```
+npm install multer
+npm i --save-dev @types/multer
+```
 
 ## ✅ Configuração do Banco de Dados
 
