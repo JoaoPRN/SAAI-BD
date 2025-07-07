@@ -1,11 +1,5 @@
 import {
-  IsInt,
-  IsString,
-  IsOptional,
-  IsDateString,
-  IsDefined,
-  Min,
-  Max,
+  IsInt, IsString, IsOptional, IsDateString, IsDefined, Min, Max,
 } from "class-validator";
 
 export class RequisicaoAtualizarAvaliacaoServicoDTO {

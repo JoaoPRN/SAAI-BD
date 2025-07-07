@@ -11,13 +11,14 @@ class AvaliacaoServicoController {
         res: Response
     ) {
         try {
-        await AvaliacaoServicoService.criarAvaliacaoServico(req.body);
-        res.status(201).json({ message: "Avaliação de serviço criada com sucesso!" });
+            await AvaliacaoServicoService.criarAvaliacaoServico(req.body);
+            res.status(201).json({ message: "Avaliação de serviço criada com sucesso!" });
         } catch (error: any) {
-        console.error(error);
-        res.status(500).json({ message: "Erro interno ao criar avaliação.", erro: error?.message });
+            console.error(error);
+            res.status(500).json({ message: "Erro interno ao criar avaliação.", erro: error?.message });
         }
     }
+    
     static async atualizarAvaliacaoServico(
         req: Request<{}, {}, RequisicaoAtualizarAvaliacaoServicoDTO>,
         res: Response
@@ -31,7 +32,7 @@ class AvaliacaoServicoController {
             res.status(404).json({ message: "Avaliação de serviço não encontrada." });
         }
         } catch (error: any) {
-        res.status(500).json({ message: "Erro interno ao atualizar avaliação.", erro: error?.message });
+            res.status(500).json({ message: "Erro interno ao atualizar avaliação.", erro: error?.message });
         }
     }
 
@@ -40,24 +41,18 @@ class AvaliacaoServicoController {
         res: Response
     ) {
 
-        console.log("REQ METHOD:", req.method); // debug
-        console.log("REQ BODY:", req.body);
-        console.log("REQ QUERY:", req.query);
         try {
-        const resultado = await AvaliacaoServicoService.consultaAvaliacaoServico(req.body);
-        res.status(201).json({ avaliacoes: resultado });
+            const resultado = await AvaliacaoServicoService.consultaAvaliacaoServico(req.body);
+            res.status(201).json({ avaliacoes: resultado });
         } catch (error: any) {
-        res.status(500).json({ message: "Erro interno ao consultar avaliação.", erro: error?.message });
+            res.status(500).json({ message: "Erro interno ao consultar avaliação.", erro: error?.message });
         }
     }
 
-      static async excluirAvaliacaoServico(
+    static async excluirAvaliacaoServico(
         req: Request<{}, {}, RequisicaoExcluirAvaliacaoServicoDTO>,
         res: Response
     ) {
-        console.log("REQ METHOD:", req.method);
-        console.log("REQ BODY:", req.body);
-        console.log("REQ QUERY:", req.query);  // vazio
 
         try {
             const sucesso = await AvaliacaoServicoService.excluirAvaliacaoServico(req.body);

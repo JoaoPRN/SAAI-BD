@@ -45,7 +45,7 @@ class AvaliacaoServicoService {
   }
   
   static async consultaAvaliacaoServico(dados: RequisicaoListarAvaliacaoServicoDTO) {
-    return await AvaliacaoServicoRepository.consultar(dados.matriculaAluno, dados.codTipoServico);
+    return await AvaliacaoServicoRepository.consultar(dados.matriculaAluno);
   }
 
   static async excluirAvaliacaoServico(dados: RequisicaoExcluirAvaliacaoServicoDTO) {
