@@ -41,7 +41,7 @@ const LoginPage: React.FC = () => {
             onChange={(e) => setSenha(e.target.value)}
             style={styles.input}
           />
-          <button type="submit" style={styles.button}>
+          <button type="submit" style={styles.loginButton}>
             Entrar
           </button>
         </form>
@@ -109,6 +109,16 @@ const styles: { [key: string]: React.CSSProperties } = {
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
+  },
+    loginButton: {
+    padding: "0.75rem",
+    fontSize: "1rem",
+    backgroundColor: "#4CAF50",
+    color: "black",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
 };
 
