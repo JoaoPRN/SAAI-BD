@@ -45,6 +45,6 @@ export class RequisicaoCriarAlunoDTO {
   @Matches(/^\d+$/, { message: "Telefone deve conter apenas números." })
   telefone!: string;
 
-  @IsOptional()
+  @IsOptional() //validacao ate 16mb
   foto?: Blob | null;
 }

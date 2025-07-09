@@ -5,7 +5,7 @@ CREATE PROCEDURE SAAI.cargaInicialBD(
   IN dt_ingresso DATE,
   IN dt_nascimento DATE,
   IN nome_curso VARCHAR(20),
-  IN aluno_foto BLOB,
+  IN aluno_foto MEDIUMBLOB,
 
   -- Dados do professor
   IN matricula_professor INT,

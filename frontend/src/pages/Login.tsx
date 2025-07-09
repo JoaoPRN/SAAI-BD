@@ -26,21 +26,27 @@ const LoginPage: React.FC = () => {
           Insira sua matrícula para acessar o sistema.
         </h3>
       </header>
-
       <main style={styles.main}>
-        <form onSubmit={handleLogin} style={styles.form}>
-          <div style={styles.inputGroup}>
-            <label htmlFor="usuario" style={styles.label}>Usuário (Matrícula)</label>
+        <div style={styles.container}>
+          <form onSubmit={handleLogin} style={styles.form}>
+            <label style={styles.label}>Usuário (Matrícula)</label>
             <input
-              id="usuario"
               type="text"
               value={usuario}
               onChange={(e) => setUsuario(e.target.value)}
               style={styles.input}
             />
+            <button type="submit" style={styles.loginButton}>
+              Entrar
+            </button>
+          </form>
+
+          <div id="criar-aluno" style={styles.alunoActions}>
+            <button style={styles.criarButton}>Criar Aluno</button>
+            <button style={styles.editarButton}>Editar Aluno</button>
+            <button style={styles.excluirButton}>Excluir Aluno</button>
           </div>
-          <button type="submit" style={styles.loginButton}>Entrar</button>
-        </form>
+        </div>
       </main>
     </div>
   );
@@ -93,6 +99,11 @@ const styles: { [key: string]: React.CSSProperties } = {
     justifyContent: "center",
     alignItems: "center",
   },
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
   form: {
     display: "flex",
     flexDirection: "column",
@@ -129,6 +140,43 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: "white",
     border: "none",
     borderRadius: "6px",
+    cursor: "pointer",
+    fontWeight: "bold",
+  },
+  alunoActions: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: "1rem",
+    marginTop: "100px",
+  },
+
+  criarButton: {
+    padding: "0.5rem 1rem",
+    backgroundColor: "#007bff", 
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontWeight: "bold",
+  },
+
+  editarButton: {
+    padding: "0.5rem 1rem",
+    backgroundColor: "#ffc107",
+    color: "black",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontWeight: "bold",
+  },
+
+  excluirButton: {
+    padding: "0.5rem 1rem",
+    backgroundColor: "#dc3545",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
     cursor: "pointer",
     fontWeight: "bold",
   },
