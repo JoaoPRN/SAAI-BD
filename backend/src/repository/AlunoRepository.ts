@@ -1,3 +1,4 @@
+import { Connection } from "mysql2/promise";
 import db from "../database/db";
 import Aluno from "../models/Aluno";
 
@@ -6,7 +7,6 @@ class AlunoRepository {
     const sql = `INSERT INTO SAAI.TD_ALUNO (NUM_MATRICULA_ALUNO, NOM_ALUNO, DT_INGRESSO, DT_NASCIMENTO, NOM_CURSO, FOTO_ALUNO)
             VALUES (?, ?, ?, ?, ?, ?)`;
 
-    console.log(aluno);
     const values = [
       aluno.matricula,
       aluno.nome,
@@ -27,10 +27,18 @@ class AlunoRepository {
     return result;
   }
 
-  static async excluir(matricula: number) {
+  static async excluir(connection: Connection, matricula: number) {
     const sql = `DELETE FROM SAAI.TD_ALUNO WHERE NUM_MATRICULA_ALUNO = ?`;
 
-    const result = await db.query(sql, matricula);
+    const result = await connection.query(sql, matricula);
+
+    return result;
+  }
+
+  static async excluirTelefone(matricula: number, telefone: number) {
+    const sql = `DELETE FROM SAAI.TD_TELEFONE WHERE NUM_MATRICULA_ALUNO = ? AND NUM_TELEFONE = ?`;
+
+    const result = await db.query(sql, telefone);
 
     return result.affectedRows > 0;
   }

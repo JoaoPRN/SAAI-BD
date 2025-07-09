@@ -13,7 +13,7 @@ class AvaliacaoSalaService {
 
       // Verificar se a sala existe na tabela de salas
       const [salaExiste] = await connection.query(
-        "SELECT 1 FROM sistema_avaliativo.TD_SALA WHERE NUM_SALA = ?",
+        "SELECT 1 FROM SAAI.TD_SALA WHERE NUM_SALA = ?",
         [dados.sala]
       );
 
@@ -60,56 +60,63 @@ class AvaliacaoSalaService {
     }
   }
 
-static async atualizarAvaliacaoSala(
-  matricula: number,
-  sala: number,
-  semestre: string,
-  dadosAtualizados: RequisicaoAtualizarAvaliacaoSalaDTO
-) {
-  const connection = await mysql.createConnection(config.db);
-  try {
-    await connection.beginTransaction();
+  static async atualizarAvaliacaoSala(
+    matricula: number,
+    sala: number,
+    semestre: string,
+    dadosAtualizados: RequisicaoAtualizarAvaliacaoSalaDTO
+  ) {
+    const connection = await mysql.createConnection(config.db);
+    try {
+      await connection.beginTransaction();
 
-    await AvaliacaoSalaRepository.atualizar(
-      connection,
-      matricula,
-      sala,
-      semestre,
-      dadosAtualizados
-    );
+      await AvaliacaoSalaRepository.atualizar(
+        connection,
+        matricula,
+        sala,
+        semestre,
+        dadosAtualizados
+      );
 
-    await connection.commit();
-  } catch (error) {
-    await connection.rollback();
-    throw error;
-  } finally {
-    await connection.end();
+      await connection.commit();
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      await connection.end();
+    }
   }
-}
 
-static async excluirAvaliacaoSala(matricula: number, sala: number, semestre: number) {
-  const connection = await mysql.createConnection(config.db);
-  try {
-    await connection.beginTransaction();
+  static async excluirAvaliacaoSala(
+    matricula: number,
+    sala: number,
+    semestre: string
+  ) {
+    const connection = await mysql.createConnection(config.db);
+    try {
+      await connection.beginTransaction();
 
-    await AvaliacaoSalaRepository.excluir(connection, matricula, sala, semestre);
+      await AvaliacaoSalaRepository.excluir(
+        connection,
+        matricula,
+        sala,
+        semestre
+      );
 
-    await connection.commit();
-  } catch (error) {
-    await connection.rollback();
-    throw error;
-  } finally {
-    await connection.end();
+      await connection.commit();
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      await connection.end();
+    }
   }
-}
-
 
   static async listarAvaliacaoSalas() {
     const avaliacoes = await AvaliacaoSalaRepository.listar();
     console.log(avaliacoes);
     return avaliacoes;
   }
-
 }
 
 export default AvaliacaoSalaService;

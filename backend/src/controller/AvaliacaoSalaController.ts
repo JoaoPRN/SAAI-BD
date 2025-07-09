@@ -1,9 +1,8 @@
-import { Request, RequestHandler, Response } from "express";
-import AvaliacaoSalaService from "../service/AvaliacaoSalaService";
-import { RequisicaoExcluirAvaliacaoSalaDTO } from "../dtos/avaliacaoSala/RequisicaoExcluirAlunoDTO";
-import { RequisicaoCriarAvaliacaoSalaDTO } from "../dtos/avaliacaoSala/RequisicaoCriarAvaliacaoSalaDTO";
-import { log } from "console";
+import { Request, Response } from "express";
 import { RequisicaoAtualizarAvaliacaoSalaDTO } from "../dtos/avaliacaoSala/RequisicaoAtualizarAvaliacaoSalaDTO";
+import { RequisicaoCriarAvaliacaoSalaDTO } from "../dtos/avaliacaoSala/RequisicaoCriarAvaliacaoSalaDTO";
+import { RequisicaoExcluirAvaliacaoSalaDTO } from "../dtos/avaliacaoSala/RequisicaoExcluirAlunoDTO";
+import AvaliacaoSalaService from "../service/AvaliacaoSalaService";
 
 class AvaliacaoSalaController {
   static async criarAvaliacaoSala(
@@ -11,7 +10,6 @@ class AvaliacaoSalaController {
     res: Response
   ) {
     try {
-
       await AvaliacaoSalaService.criarAvaliacaoSala(req.body);
       res.status(201).json({ message: "AvaliacaoSala criado com sucesso!" });
     } catch (error) {
@@ -22,7 +20,8 @@ class AvaliacaoSalaController {
 
   static async listarAvaliacaoSalas(req: Request, res: Response) {
     try {
-      const listaAvaliacaoSalas = await AvaliacaoSalaService.listarAvaliacaoSalas();
+      const listaAvaliacaoSalas =
+        await AvaliacaoSalaService.listarAvaliacaoSalas();
 
       res.status(200).json({
         listaAvaliacaoSalas,
@@ -33,9 +32,12 @@ class AvaliacaoSalaController {
     }
   }
 
-
   static async atualizarAvaliacaoSala(
-    req: Request<{ matricula: string; sala: string; semestre: string }, {}, RequisicaoAtualizarAvaliacaoSalaDTO>,
+    req: Request<
+      { matricula: string; sala: string; semestre: string },
+      {},
+      RequisicaoAtualizarAvaliacaoSalaDTO
+    >,
     res: Response
   ) {
     try {
@@ -55,8 +57,6 @@ class AvaliacaoSalaController {
       res.status(500).json({ message: "Erro interno ao atualizar avaliação." });
     }
   }
-
-
 
   static async excluirAvaliacaoSala(
     req: Request<{}, {}, RequisicaoExcluirAvaliacaoSalaDTO>,

@@ -1,3 +1,4 @@
+import { Connection } from "mysql2/promise";
 import db from "../database/db";
 import AvaliacaoServico from "../models/AvaliacaoServico";
 
@@ -7,11 +8,11 @@ class AvaliacaoServicoRepository {
             (NUM_MATRICULA_ALUNO, NUM_ID_SERVICO, DAT_AVALIACAO, TXT_COMENTARIO, NUM_NOTA_SERVICO)
             VALUES (?, ?, ?, ?, ?)`;
     const values = [
-        avaliacao.matriculaAluno,
-        avaliacao.codTipoServico,
-        avaliacao.data.toISOString().split("T")[0],
-        avaliacao.texto ?? null,
-        avaliacao.nota,
+      avaliacao.matriculaAluno,
+      avaliacao.codTipoServico,
+      avaliacao.data.toISOString().split("T")[0],
+      avaliacao.texto ?? null,
+      avaliacao.nota,
     ];
     await connection.execute(sql, values);
   }
@@ -22,21 +23,21 @@ class AvaliacaoServicoRepository {
             WHERE NUM_MATRICULA_ALUNO = ? AND NUM_ID_SERVICO = ?`;
 
     const values = [
-        avaliacao.data.toISOString().split("T")[0],
-        avaliacao.texto ?? null,
-        avaliacao.nota,
-        avaliacao.matriculaAluno,
-        avaliacao.codTipoServico,
+      avaliacao.data.toISOString().split("T")[0],
+      avaliacao.texto ?? null,
+      avaliacao.nota,
+      avaliacao.matriculaAluno,
+      avaliacao.codTipoServico,
     ];
 
     try {
-    const result: any = await db.query(sql, values);
-        return result.affectedRows > 0;
+      const result: any = await db.query(sql, values);
+      return result.affectedRows > 0;
     } catch (error) {
-        throw error;
+      throw error;
     }
   }
-  
+
   static async consultar(matriculaAluno: number) {
     const sql = `SELECT * FROM SAAI.TD_AVL_SERVICOS WHERE NUM_MATRICULA_ALUNO = ?`;
     const values = [matriculaAluno];
@@ -49,8 +50,19 @@ class AvaliacaoServicoRepository {
     const sql = `DELETE FROM SAAI.TD_AVL_SERVICOS WHERE NUM_MATRICULA_ALUNO = ? AND NUM_ID_SERVICO = ?`;
     const values = [matriculaAluno, codTipoServico];
 
-    const result = await db.query(sql, values); 
+    const result = await db.query(sql, values);
     return result.affectedRows > 0;
+  }
+
+  static async excluirPorMatricula(
+    connection: Connection,
+    matriculaAluno: number
+  ) {
+    const sql = `DELETE FROM SAAI.TD_AVL_SERVICOS WHERE NUM_MATRICULA_ALUNO = ?`;
+    const values = [matriculaAluno];
+
+    const result = await connection.query(sql, values);
+    return result;
   }
 }
 

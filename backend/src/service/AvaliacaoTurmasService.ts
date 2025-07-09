@@ -79,18 +79,16 @@ class AvaliacaoTurmasService {
   }
 
   static async consultaAvaliacaoTurma(
-    dados: RequisicaoConsultaAvaliacaoTurmasDTO
+    matriculaAluno: number,
+    codigoTurma: number
   ) {
-    const { matriculaAluno, codigoTurma } = dados;
-
     return await AvalicaoTurmasRepository.consulta(matriculaAluno, codigoTurma);
   }
 
   static async excluirAvaliacaoTurma(
-    dados: RequisicaoConsultaAvaliacaoTurmasDTO
+    matriculaAluno: number,
+    codigoTurma: number
   ) {
-    const { matriculaAluno, codigoTurma } = dados;
-
     return await AvalicaoTurmasRepository.excluir(matriculaAluno, codigoTurma);
   }
 }
