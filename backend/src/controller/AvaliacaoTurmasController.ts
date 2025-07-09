@@ -65,12 +65,9 @@ class AvaliacaoTurmasController {
         parseInt(codigoTurma, 10)
       );
 
-      if (sucesso) {
-        res
-          .status(201)
-          .json({ message: "Exclusão da avalicao feita com sucesso!" });
-      }
-      res.status(500).json({ message: "Erro interno ao excluir avaliação" });
+      res
+        .status(201)
+        .json({ message: "Exclusão da avalicao feita com sucesso!" });
     } catch (error) {
       res.status(500).json({ message: "Erro interno ao excluir avaliação" });
     }
