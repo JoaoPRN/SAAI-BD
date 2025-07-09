@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
   const [usuario, setUsuario] = useState("");
-  const [senha, setSenha] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -22,28 +21,25 @@ const LoginPage: React.FC = () => {
   return (
     <div style={styles.page}>
       <header style={styles.header}>
-        <h1 style={styles.title}>Sistema de Avaliação Acadêmica Integrada</h1>
+        <h1 style={styles.title}>🎓 Sistema de Avaliação Acadêmica Integrada</h1>
+        <h3 style={styles.subtitle}>
+          Insira sua matrícula para acessar o sistema.
+        </h3>
       </header>
 
       <main style={styles.main}>
         <form onSubmit={handleLogin} style={styles.form}>
-          <input
-            type="text"
-            placeholder="Usuário"
-            value={usuario}
-            onChange={(e) => setUsuario(e.target.value)}
-            style={styles.input}
-          />
-          <input
-            type="password"
-            placeholder="Senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            style={styles.input}
-          />
-          <button type="submit" style={styles.loginButton}>
-            Entrar
-          </button>
+          <div style={styles.inputGroup}>
+            <label htmlFor="usuario" style={styles.label}>Usuário (Matrícula)</label>
+            <input
+              id="usuario"
+              type="text"
+              value={usuario}
+              onChange={(e) => setUsuario(e.target.value)}
+              style={styles.input}
+            />
+          </div>
+          <button type="submit" style={styles.loginButton}>Entrar</button>
         </form>
       </main>
     </div>
@@ -71,17 +67,25 @@ const styles: { [key: string]: React.CSSProperties } = {
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "white",
+    backgroundColor: "#ffffff",
   },
   header: {
-    padding: "20px",
+    backgroundColor: "#1E90FF",
+    padding: "30px 0",
+    paddingLeft: "100px", 
     textAlign: "center",
   },
   title: {
     fontSize: "2.5rem",
     fontWeight: "bold",
+    color: "white",
     margin: 0,
-    color: "black",
+  },
+  subtitle: {
+    color: "white",
+    fontSize: "1.2rem",
+    fontWeight: 300,
+    marginTop: 10,
   },
   main: {
     flex: 1,
@@ -93,30 +97,38 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: "flex",
     flexDirection: "column",
     width: "300px",
-    gap: "1rem",
+    gap: "1.5rem",
+    backgroundColor: "#f7f7f7",
+    padding: "2rem",
+    borderRadius: "10px",
+    boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+  },
+  inputGroup: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.5rem",
+  },
+  label: {
+    fontSize: "0.95rem",
+    color: "#333333",
+    fontWeight: "bold",
   },
   input: {
     padding: "0.75rem",
     fontSize: "1rem",
-    borderRadius: "5px",
-    border: "1px solid #ccc",
+    borderRadius: "6px",
+    border: "1px solid #cccccc",
+    backgroundColor: "#ffffff",
+    color: "#333",
+    outline: "none",
   },
-  button: {
-    padding: "0.75rem",
-    fontSize: "1rem",
-    backgroundColor: "#0062ff",
-    color: "#000000",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-    loginButton: {
+  loginButton: {
     padding: "0.75rem",
     fontSize: "1rem",
     backgroundColor: "#4CAF50",
-    color: "black",
+    color: "white",
     border: "none",
-    borderRadius: "5px",
+    borderRadius: "6px",
     cursor: "pointer",
     fontWeight: "bold",
   },
