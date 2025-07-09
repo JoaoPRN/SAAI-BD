@@ -3,13 +3,13 @@ import AlunoController from "../controller/AlunoController";
 import { RequisicaoCriarAlunoDTO } from "../dtos/alunoDTO/RequisicaoCriarAlunoDTO";
 import { ValidacaoMiddleware } from "../middleware/ValidacaoMiddleware";
 import { RequisicaoExcluirAlunoDTO } from "../dtos/alunoDTO/RequisicaoExcluirAlunoDTO";
-import upload from "../middleware/uploadMiddleware"
+import upload from "../middleware/uploadMiddleware";
 
 const router = Router();
 
 router.post(
   "/criar-aluno",
-  upload.single("foto"), 
+  upload.single("foto"),
   ValidacaoMiddleware(RequisicaoCriarAlunoDTO),
   AlunoController.criarAluno
 );
@@ -47,7 +47,7 @@ export default router;
  *           example: "João da Silva"
  *         curso:
  *           type: string
- *           example: "Engenharia de Computação"
+ *           example: "Engenharia"
  *         dataIngresso:
  *           type: string
  *           format: date
@@ -85,7 +85,7 @@ export default router;
  *     requestBody:
  *       required: true
  *       content:
- *          application/json:
+ *          multipart/form-data:
  *           schema:
  *             $ref: '#/components/schemas/RequisicaoCriarAlunoDTO'
  *     responses:
@@ -96,6 +96,24 @@ export default router;
 /**
  * @swagger
  * /aluno/excluir-aluno:
+ *   delete:
+ *     summary: Exclui um aluno
+ *     tags:
+ *       - Alunos
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/RequisicaoExcluirAlunoDTO'
+ *     responses:
+ *       200:
+ *         description: Aluno excluído com sucesso
+ */
+
+/**
+ * @swagger
+ * /aluno/excluir-telefone:
  *   delete:
  *     summary: Exclui um aluno
  *     tags:

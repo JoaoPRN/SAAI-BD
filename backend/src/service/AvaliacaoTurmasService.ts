@@ -38,6 +38,7 @@ class AvaliacaoTurmasService {
       await AvalicaoTurmasRepository.inserir(connection, avaliacaoTurma);
       await MatriculaRepository.atualizarIndicador(
         connection,
+        1,
         numeroMatriculaAluno,
         codigoTurma
       );
@@ -79,19 +80,34 @@ class AvaliacaoTurmasService {
   }
 
   static async consultaAvaliacaoTurma(
-    dados: RequisicaoConsultaAvaliacaoTurmasDTO
+    matriculaAluno: number,
+    codigoTurma: number
   ) {
-    const { matriculaAluno, codigoTurma } = dados;
-
     return await AvalicaoTurmasRepository.consulta(matriculaAluno, codigoTurma);
   }
 
   static async excluirAvaliacaoTurma(
-    dados: RequisicaoConsultaAvaliacaoTurmasDTO
+    matriculaAluno: number,
+    codigoTurma: number
   ) {
-    const { matriculaAluno, codigoTurma } = dados;
+    const connection = await mysql.createConnection(config.db);
+    try {
+      await connection.beginTransaction();
 
-    return await AvalicaoTurmasRepository.excluir(matriculaAluno, codigoTurma);
+      await MatriculaRepository.atualizarIndicador(
+        connection,
+        0,
+        matriculaAluno,
+        codigoTurma
+      );
+      await AvalicaoTurmasRepository.excluir(matriculaAluno, codigoTurma);
+      await connection.commit();
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      await connection.end();
+    }
   }
 }
 

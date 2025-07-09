@@ -4,6 +4,9 @@ import { RequisicaoCriarAlunoDTO } from "../dtos/alunoDTO/RequisicaoCriarAlunoDT
 import Aluno from "../models/Aluno";
 import AlunoRepository from "../repository/AlunoRepository";
 import { TelefoneRepository } from "../repository/TelefoneRepository";
+import AvaliacaoSalaRepository from "../repository/AvaliacaoSalaRepository";
+import AvaliacaoServicoRepository from "../repository/AvaliacaoServicoRepository";
+import AvalicaoTurmasRepository from "../repository/AvaliacaoTurmasRepository";
 
 class AlunoService {
   static async criarAluno(dados: RequisicaoCriarAlunoDTO) {
@@ -19,8 +22,6 @@ class AlunoService {
         telefone,
         foto,
       } = dados;
-
-      console.log(telefone);
 
       const novoAluno = new Aluno(
         matricula,
@@ -43,9 +44,26 @@ class AlunoService {
   }
 
   static async excluirAluno(matricula: number) {
-    const alunos = await AlunoRepository.excluir(matricula);
+    const connection = await mysql.createConnection(config.db);
+    try {
+      await connection.beginTransaction();
+      await TelefoneRepository.delete(connection, matricula);
 
-    return alunos;
+      await AvaliacaoSalaRepository.excluirPorMatricula(connection, matricula);
+      await AvaliacaoServicoRepository.excluirPorMatricula(
+        connection,
+        matricula
+      );
+      await AvalicaoTurmasRepository.excluirPorMatricula(connection, matricula);
+      const resultado = await AlunoRepository.excluir(connection, matricula);
+      await connection.commit();
+      return resultado;
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      await connection.end();
+    }
   }
 
   static async listarAlunos() {

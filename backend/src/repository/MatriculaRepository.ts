@@ -9,11 +9,12 @@ export class MatriculaRepository {
 
   static async atualizarIndicador(
     connection: any,
+    indicador: number,
     matricula: number,
     codigoTurma: number
   ) {
-    const sql = `UPDATE SAAI.TD_MATRICULA SET COD_IND_AVALIACAO=1 WHERE NUM_MATRICULA_ALUNO = ? AND COD_ID_TURMA = ?;`;
+    const sql = `UPDATE SAAI.TD_MATRICULA SET COD_IND_AVALIACAO=? WHERE NUM_MATRICULA_ALUNO = ? AND COD_ID_TURMA = ?;`;
 
-    await db.query(sql, [matricula, codigoTurma]);
+    await db.query(sql, [indicador, matricula, codigoTurma]);
   }
 }

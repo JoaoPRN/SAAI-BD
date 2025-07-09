@@ -2,27 +2,30 @@ import { Router } from "express";
 import AvaliacaoTurmasController from "../controller/AvaliacaoTurmasController";
 import { RequisicaoAvaliacaoTurmasDTO } from "../dtos/avaliacaoTurmas/RequisicaoAvaliacaoTurmasDTO";
 import { ValidacaoMiddleware } from "../middleware/ValidacaoMiddleware";
+import { RequisicaoExcluirAvaliacaoTurmasDTO } from "../dtos/avaliacaoTurmas/RequisicaoExcluirAvaliacaoTurmasDTO";
+import AvaliacaoTurmasService from "../service/AvaliacaoTurmasService";
 
 const router = Router();
 
 router.post(
-  "/avaliar-turma",
+  "/avaliar",
   ValidacaoMiddleware(RequisicaoAvaliacaoTurmasDTO),
   AvaliacaoTurmasController.criarAvaliacaoTurma
 );
 
 router.put(
-  "/atualizar-avaliacao-turma",
+  "/atualizar",
   ValidacaoMiddleware(RequisicaoAvaliacaoTurmasDTO),
   AvaliacaoTurmasController.atualizarAvaliacaoTurma
 );
 
 router.delete(
-  "/excluir-avaliacao-turma",
+  "/excluir/:matriculaAluno/:codigoTurma",
   AvaliacaoTurmasController.excluirAvaliacaoTurma
 );
+
 router.get(
-  "/consultar-avaliacao-turma",
+  "/consultar/:matriculaAluno/:codigoTurma",
   AvaliacaoTurmasController.consultaAvaliacaoTurma
 );
 
@@ -50,7 +53,7 @@ export default router;
  *           example: 202312345
  *         codigoTurma:
  *           type: integer
- *           example: 101
+ *           example: 1
  *         dataAvaliacao:
  *           type: string
  *           format: date
@@ -88,7 +91,7 @@ export default router;
 
 /**
  * @swagger
- * /avaliar-turma:
+ * /avaliacao-turmas/avaliar:
  *   post:
  *     summary: Cria uma avaliação para uma turma
  *     tags:
@@ -106,7 +109,7 @@ export default router;
 
 /**
  * @swagger
- * /atualizar-avaliacao-turma:
+ * /avaliacao-turmas/atualizar:
  *   put:
  *     summary: Atualiza uma avaliação de turma existente
  *     tags:
@@ -124,22 +127,22 @@ export default router;
 
 /**
  * @swagger
- * /excluir-avaliacao-turma:
+ * /avaliacao-turmas/excluir/{matriculaAluno}/{codigoTurma}:
  *   delete:
  *     summary: Exclui uma avaliação de turma
  *     tags:
  *       - Avaliação Turmas
  *     parameters:
- *       - in: query
- *         name: numeroMatriculaAluno
+ *       - in: path
+ *         name: matriculaAluno
  *         required: true
  *         schema:
- *           type: integer
- *       - in: query
+ *           type: number
+ *       - in: path
  *         name: codigoTurma
  *         required: true
  *         schema:
- *           type: integer
+ *           type: number
  *     responses:
  *       200:
  *         description: Avaliação excluída com sucesso
@@ -147,22 +150,22 @@ export default router;
 
 /**
  * @swagger
- * /consultar-avaliacao-turma:
+ * /avaliacao-turmas/consultar/{matriculaAluno}/{codigoTurma}:
  *   get:
  *     summary: Consulta avaliação de uma turma
  *     tags:
  *       - Avaliação Turmas
  *     parameters:
- *       - in: query
- *         name: numeroMatriculaAluno
+ *       - in: path
+ *         name: matriculaAluno
  *         required: true
  *         schema:
- *           type: integer
- *       - in: query
+ *           type: number
+ *       - in: path
  *         name: codigoTurma
  *         required: true
  *         schema:
- *           type: integer
+ *           type: number
  *     responses:
  *       200:
  *         description: Avaliação encontrada com sucesso

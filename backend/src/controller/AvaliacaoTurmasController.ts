@@ -21,15 +21,16 @@ class AvaliacaoTurmasController {
     }
   }
 
-  static async consultaAvaliacaoTurma(
-    req: Request<{}, {}, RequisicaoConsultaAvaliacaoTurmasDTO>,
-    res: Response
-  ) {
+  static async consultaAvaliacaoTurma(req: Request, res: Response) {
     try {
-      const avaliacaoTurma =
-        await AvaliacaoTurmasService.consultaAvaliacaoTurma(req.body);
+      const { matriculaAluno, codigoTurma } = req.params;
 
-      res.status(201).json({ avaliacaoTurma });
+      const avaliacao = await AvaliacaoTurmasService.consultaAvaliacaoTurma(
+        parseInt(matriculaAluno, 10),
+        parseInt(codigoTurma, 10)
+      );
+
+      res.status(201).json({ avaliacao });
     } catch (error) {
       res.status(500).json({ message: "Avaliacao não encontrada!" });
     }
@@ -55,21 +56,18 @@ class AvaliacaoTurmasController {
     }
   }
 
-  static async excluirAvaliacaoTurma(
-    req: Request<{}, {}, RequisicaoConsultaAvaliacaoTurmasDTO>,
-    res: Response
-  ) {
+  static async excluirAvaliacaoTurma(req: Request, res: Response) {
     try {
+      const { matriculaAluno, codigoTurma } = req.params;
+
       const sucesso = await AvaliacaoTurmasService.excluirAvaliacaoTurma(
-        req.body
+        parseInt(matriculaAluno, 10),
+        parseInt(codigoTurma, 10)
       );
 
-      if (sucesso) {
-        res
-          .status(201)
-          .json({ message: "Exclusão da avalicao feita com sucesso!" });
-      }
-      res.status(500).json({ message: "Erro interno ao excluir avaliação" });
+      res
+        .status(201)
+        .json({ message: "Exclusão da avalicao feita com sucesso!" });
     } catch (error) {
       res.status(500).json({ message: "Erro interno ao excluir avaliação" });
     }

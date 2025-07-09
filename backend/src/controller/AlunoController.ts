@@ -57,7 +57,6 @@ class AlunoController {
     }
   }
 
-
   static async excluirAluno(
     req: Request<{}, {}, RequisicaoExcluirAlunoDTO>,
     res: Response

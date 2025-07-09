@@ -76,13 +76,13 @@ textarea {
   border: 1px solid #ddd;
   border-radius: 12px;
   padding: 1rem;
-  background: #fefefe;
+  background: #0628e9;
 }
 
 button {
   padding: 0.5rem 1rem;
-  background: #0062ff;
-  color: white;
+  background-color: #0044d6;
+  color: rgb(6, 6, 7);
   border: none;
   border-radius: 6px;
   cursor: pointer;

@@ -13,6 +13,7 @@ const Avaliacao = () => {
   const [gradeHoraria, setgradeHoraria] = useState<
     | [
         {
+          COD_ID_TURMA: string;
           NOM_DISCIPLINA: string;
           NOM_PROFESSOR: string;
           NUM_CAPACIDADE: string;
@@ -20,6 +21,7 @@ const Avaliacao = () => {
           NUM_MATRICULA_ALUNO: string;
           NUM_SALA: string;
           NUM_SEMESTRE: string;
+          COD_IND_AVALIACAO: string;
         }
       ]
     | null
@@ -34,8 +36,7 @@ const Avaliacao = () => {
   }, []);
 
   const handleCardClick = (matricula: any) => {
-    console.log("Card clicado:", matricula);
-    console.log("matricula aluno: ", matriculaAluno);
+    console.log(matricula);
     navigate("/avaliacaoDisciplina", {
       state: { dados: matricula, codigoMatricula: matriculaAluno },
     });

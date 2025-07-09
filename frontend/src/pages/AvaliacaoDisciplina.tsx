@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/AvaliacaoDisciplina.css";
 import { useLocation } from "react-router-dom";
 
@@ -22,6 +22,46 @@ const AvaliacaoDisciplina = () => {
     cumprimento: 0,
     comentario: "",
   });
+
+  useEffect(() => {
+    consultarDisciplina(codigoMatricula, dados.COD_ID_TURMA).then((dados) => {
+      if (dados) {
+        const dadosAvaliacao = {
+          conteudo: dados[0].NUM_NOTA_CONTEUDO_DISCIPLINA,
+          criterios: dados[0].NUM_NOTA_CRITERIO_AVALIACAO,
+          organizacao: dados[0].NUM_NOTA_ORGANIZACAO_DISCIPLINA,
+          didatica: dados[0].NUM_NOTA_DIDATICA_PROFESSOR,
+          cumprimento: dados[0].NUM_NOTA_CUMPRIMENTO_EMENTA,
+          comentario: dados[0].TXT_COMENTARIO,
+        };
+
+        setAvaliacao(dadosAvaliacao);
+      }
+    });
+  }, []);
+
+  async function consultarDisciplina(
+    matriculaAluno: number,
+    codigoTurma: number
+  ) {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/avaliacao-turmas/consultar/${matriculaAluno}/${codigoTurma}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log(data.avaliacao);
+      return data.avaliacao;
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+    }
+  }
 
   const handleStarChange = (campo: keyof Avaliacao, valor: number) => {
     setAvaliacao((prev) => ({ ...prev, [campo]: valor }));
@@ -48,7 +88,7 @@ const AvaliacaoDisciplina = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/avaliacao-turmas/avaliar-turma",
+        "http://localhost:3000/avaliacao-turmas/avaliar",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -61,6 +101,43 @@ const AvaliacaoDisciplina = () => {
       } else {
         console.log(response);
         alert("Erro ao enviar a avaliação.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao conectar com o servidor.");
+    }
+  };
+
+  const handleUpdate = async () => {
+    const hoje = new Date();
+    const dataISO = hoje.toISOString().split("T")[0];
+    const requisicao = {
+      numeroMatriculaAluno: parseInt(codigoMatricula),
+      codigoTurma: parseInt(dados.COD_ID_TURMA),
+      dataAvaliacao: dataISO.toString(),
+      textoComentario: avaliacao.comentario,
+      notaConteudoDisciplina: avaliacao.conteudo,
+      notaOrganizacaoDisciplina: avaliacao.organizacao,
+      notaDidaticaProfessor: avaliacao.didatica,
+      notaCriterioAvaliacao: avaliacao.criterios,
+      notaCumprimentoEmenta: avaliacao.cumprimento,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:3000/avaliacao-turmas/atualizar",
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requisicao),
+        }
+      );
+
+      if (response.ok) {
+        alert("Avaliação atualizada com sucesso!");
+      } else {
+        console.log(response);
+        alert("Erro ao atualizar a avaliação.");
       }
     } catch (err) {
       console.error(err);
@@ -120,7 +197,13 @@ const AvaliacaoDisciplina = () => {
             rows={3}
             maxLength={240}
           />
-          <button onClick={handleSubmit}>Enviar Avaliação</button>
+          <div>
+            {dados.COD_IND_AVALIACAO == "0" ? (
+              <button onClick={handleSubmit}>Enviar Avaliação</button>
+            ) : (
+              <button onClick={handleUpdate}>Atualizar Avaliação</button>
+            )}
+          </div>
         </div>
       </div>
     </div>
