@@ -38,6 +38,7 @@ class AvaliacaoTurmasService {
       await AvalicaoTurmasRepository.inserir(connection, avaliacaoTurma);
       await MatriculaRepository.atualizarIndicador(
         connection,
+        1,
         numeroMatriculaAluno,
         codigoTurma
       );
@@ -89,7 +90,24 @@ class AvaliacaoTurmasService {
     matriculaAluno: number,
     codigoTurma: number
   ) {
-    return await AvalicaoTurmasRepository.excluir(matriculaAluno, codigoTurma);
+    const connection = await mysql.createConnection(config.db);
+    try {
+      await connection.beginTransaction();
+
+      await MatriculaRepository.atualizarIndicador(
+        connection,
+        0,
+        matriculaAluno,
+        codigoTurma
+      );
+      await AvalicaoTurmasRepository.excluir(matriculaAluno, codigoTurma);
+      await connection.commit();
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      await connection.end();
+    }
   }
 }
 

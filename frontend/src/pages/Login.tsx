@@ -104,8 +104,8 @@ const styles: { [key: string]: React.CSSProperties } = {
   button: {
     padding: "0.75rem",
     fontSize: "1rem",
-    backgroundColor: "#4CAF50",
-    color: "#1E90FF",
+    backgroundColor: "#0062ff",
+    color: "#000000",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
