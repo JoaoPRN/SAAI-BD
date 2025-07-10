@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "../styles/Tabs.css";
-import DisciplinasCard from "../components/DisciplinasCard";
 import { useLocation, useNavigate } from "react-router-dom";
+import DisciplinasCard from "../components/DisciplinasCard";
+import "../styles/Tabs.css";
 
 const Avaliacao = () => {
   const navigate = useNavigate();
@@ -10,6 +10,20 @@ const Avaliacao = () => {
   >("disciplinas");
   const location = useLocation();
   const { matriculaAluno } = location.state || {};
+  const [foto, setFoto] = useState<string>();
+  const [dadosAluno, setdadosAluno] = useState<
+    | [
+        {
+          DT_INGRESSO: string;
+          DT_NASCIMENTO: string;
+          FOTO_ALUNO: string;
+          NOM_ALUNO: string;
+          NOM_CURSO: string;
+          NUM_MATRICULA_ALUNO: string;
+        }
+      ]
+    | null
+  >();
   const [gradeHoraria, setgradeHoraria] = useState<
     | [
         {
@@ -33,6 +47,13 @@ const Avaliacao = () => {
         setgradeHoraria(dados);
       }
     });
+    consultarAluno(matriculaAluno).then((alunoLogado) => {
+      console.log(alunoLogado.FOTO_ALUNO);
+      if (alunoLogado.FOTO_ALUNO) {
+        setdadosAluno(alunoLogado);
+        setFoto(alunoLogado.FOTO_ALUNO);
+      }
+    });
   }, []);
 
   const handleCardClick = (matricula: any) => {
@@ -42,16 +63,31 @@ const Avaliacao = () => {
     });
   };
 
+  function setMostrarPerfil() {
+    console.log(dadosAluno);
+    navigate("/aluno/criar-aluno", {
+      state: { dados: dadosAluno },
+    });
+  }
+
   return (
     <div style={styles.page}>
-      <header style={styles.header}>
-        <h1 style={styles.title}>
-          🎓 Sistema de Avaliação Acadêmica Integrada
-        </h1>
-        <h3 style={styles.text}>
-          Contribua para a melhoria da qualidade do ensino avaliando
-          disciplinas, professores, salas e serviços
-        </h3>
+      <header style={styles.headerSuperior}>
+        <div style={styles.header}>
+          <h1 style={styles.title}>
+            🎓 Sistema de Avaliação Acadêmica Integrada
+          </h1>
+          <h3 style={styles.text}>
+            Contribua para a melhoria da qualidade do ensino avaliando
+            disciplinas, professores, salas e serviços
+          </h3>
+        </div>
+        <img
+          src={`data:image/jpeg;base64,${foto}`}
+          alt="Foto do Aluno"
+          style={styles.fotoStyle}
+          onClick={() => setMostrarPerfil()}
+        />
       </header>
       <div className="tabs">
         <button
@@ -125,6 +161,26 @@ async function ListaDisciplinasMatriculadas(matricula: number) {
   }
 }
 
+async function consultarAluno(matricula: number) {
+  try {
+    const response = await fetch("http://localhost:3000/aluno/listar-alunos", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+    const alunoLogado = data.listaAlunos.find(
+      (aluno: any) => aluno.NUM_MATRICULA_ALUNO == matricula
+    );
+    console.log(data.listaAlunos);
+    return alunoLogado;
+  } catch (error) {
+    console.error("Erro na requisição:", error);
+  }
+}
+
 const styles: { [key: string]: React.CSSProperties } = {
   page: {
     minHeight: "100vh",
@@ -132,6 +188,13 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: "flex",
     flexDirection: "column",
     backgroundColor: "white",
+  },
+  headerSuperior: {
+    display: "flex",
+    paddingLeft: "100px",
+    textAlign: "left",
+    justifyContent: "space-between",
+    backgroundColor: "#1E90FF",
   },
   header: {
     paddingLeft: "100px",
@@ -149,6 +212,14 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: 18,
     paddingLeft: 12,
     fontWeight: 100,
+  },
+  fotoStyle: {
+    width: "48px",
+    height: "48px",
+    borderRadius: "50%",
+    cursor: "pointer",
+    border: "2px solid #fff",
+    margin: 40,
   },
 };
 

@@ -1,48 +1,71 @@
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CriarAluno: React.FC = () => {
-  const [matricula, setMatricula] = useState("");
-  const [nome, setNome] = useState("");
-  const [curso, setCurso] = useState("");
-  //const [dataIngresso, setdataIngresso] = useState("");
-
+  const location = useLocation();
+  const { dados } = location.state || {};
+  const navigate = useNavigate();
+  const [matricula, setMatricula] = useState(dados?.NUM_MATRICULA_ALUNO ?? "");
+  const [nome, setNome] = useState(dados?.NOM_ALUNO ?? "");
+  const [curso, setCurso] = useState(dados?.NOM_CURSO ?? "");
+  const [dataNascimento, setdataNascimento] = useState(
+    dados?.DT_NASCIMENTO ?? ""
+  );
+  const [telefone, setTelefone] = useState("");
+  const [foto, setFoto] = useState<File | null>(null);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    const formData = new FormData();
+    formData.append("matricula", matricula);
+    formData.append("nome", nome);
+    formData.append("curso", curso);
+    formData.append("dataNascimento", dataNascimento);
+    formData.append("dataIngresso", new Date().toISOString().split("T")[0]);
+    formData.append("telefone", telefone);
+    if (foto) {
+      formData.append("foto", foto);
+    }
     try {
-      const response = await fetch("http://localhost:3000/aluno/criar-aluno", { 
+      const response = await fetch("http://localhost:3000/aluno/criar-aluno", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          matriculaAluno: parseInt(matricula),
-          nomeAluno: nome,
-          cursoAluno: curso,
-          //dataIngresso: dataIngresso,
-          
-          /*    const values = [
-            aluno.matricula,
-            aluno.nome,
-            aluno.dataIngresso.toISOString().split("T")[0],
-            aluno.dataNascimento.toISOString().split("T")[0],
-            aluno.curso,
-            Buffer.isBuffer(aluno.fotoAluno) ? aluno.fotoAluno : null,
-            ]; */
-
-          //e etc
-        }),
+        body: formData,
       });
 
-        if (!response.ok) throw new Error("Erro ao criar aluno");
+      if (!response.ok) throw new Error("Erro ao criar aluno");
 
-        alert("Aluno criado com sucesso!");
-        setMatricula("");
-        setNome("");
-        setCurso("");
+      alert("Aluno criado com sucesso!");
+      setMatricula("");
+      setNome("");
+      setCurso("");
     } catch (err) {
-        console.error(err);
-        alert("Falha ao criar aluno");
+      console.error(err);
+      alert("Falha ao criar aluno");
     }
   };
+
+  async function handleExcluir() {
+    try {
+      console.log(dados.NUM_MATRICULA_ALUNO);
+      const response = await fetch(
+        "http://localhost:3000/aluno/excluir-aluno",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            matricula: dados.NUM_MATRICULA_ALUNO.toString(),
+          }),
+        }
+      );
+      if (!response.ok) throw new Error("Erro ao excluir aluno");
+      alert("Aluno excluído com sucesso!");
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      alert("Falha ao excluir aluno");
+    }
+  }
 
   return (
     <div style={styles.page}>
@@ -59,6 +82,7 @@ const CriarAluno: React.FC = () => {
             onChange={(e) => setMatricula(e.target.value)}
             style={styles.input}
             required
+            disabled={!!dados}
           />
 
           <label style={styles.label}>Nome do Aluno</label>
@@ -78,10 +102,64 @@ const CriarAluno: React.FC = () => {
             style={styles.input}
             required
           />
+          <label style={styles.label}>Data de Nascimento</label>
+          <input
+            type="date"
+            value={dataNascimento}
+            onChange={(e) => setdataNascimento(e.target.value)}
+            style={styles.input}
+            required
+          />
+          {!dados ? (
+            <>
+              <label style={styles.label}>Telefone</label>
+              <input
+                type="text"
+                value={telefone}
+                onChange={(e) => setTelefone(e.target.value)}
+                style={styles.input}
+                required
+              />
+            </>
+          ) : (
+            ""
+          )}
+          {!dados ? (
+            <>
+              <label style={styles.label}>Foto do Aluno</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  console.log(e.target.files);
+                  if (e.target.files && e.target.files[0]) {
+                    setFoto(e.target.files[0]);
+                  } else {
+                    setFoto(null);
+                  }
+                }}
+                style={styles.input}
+              />
+            </>
+          ) : (
+            ""
+          )}
 
-          <button type="submit" style={styles.button}>
-            Criar Aluno
-          </button>
+          {dados ? (
+            <div style={styles.buttonGroup}>
+              <button
+                type="button"
+                onClick={handleExcluir}
+                style={styles.secondaryButton}
+              >
+                Excluir
+              </button>
+            </div>
+          ) : (
+            <button type="submit" style={styles.button}>
+              Criar Aluno
+            </button>
+          )}
         </form>
       </main>
     </div>
@@ -135,6 +213,15 @@ const styles: { [key: string]: React.CSSProperties } = {
   button: {
     padding: "0.75rem",
     backgroundColor: "#007bff",
+    color: "white",
+    fontWeight: "bold",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  secondaryButton: {
+    padding: "0.75rem",
+    backgroundColor: "red",
     color: "white",
     fontWeight: "bold",
     border: "none",

@@ -18,10 +18,18 @@ const LoginPage: React.FC = () => {
     }
   };
 
+  const criarAluno = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    navigate("/aluno/criar-aluno");
+  };
+
   return (
     <div style={styles.page}>
       <header style={styles.header}>
-        <h1 style={styles.title}>🎓 Sistema de Avaliação Acadêmica Integrada</h1>
+        <h1 style={styles.title}>
+          🎓 Sistema de Avaliação Acadêmica Integrada
+        </h1>
         <h3 style={styles.subtitle}>
           Insira sua matrícula para acessar o sistema.
         </h3>
@@ -42,9 +50,9 @@ const LoginPage: React.FC = () => {
           </form>
 
           <div id="criar-aluno" style={styles.alunoActions}>
-            <button style={styles.criarButton}>Criar Aluno</button>
-            <button style={styles.editarButton}>Editar Aluno</button>
-            <button style={styles.excluirButton}>Excluir Aluno</button>
+            <button style={styles.criarButton} onClick={criarAluno}>
+              Criar Aluno
+            </button>
           </div>
         </div>
       </main>
@@ -78,7 +86,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   header: {
     backgroundColor: "#1E90FF",
     padding: "30px 0",
-    paddingLeft: "100px", 
+    paddingLeft: "100px",
     textAlign: "center",
   },
   title: {
@@ -153,7 +161,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
   criarButton: {
     padding: "0.5rem 1rem",
-    backgroundColor: "#007bff", 
+    backgroundColor: "#007bff",
     color: "white",
     border: "none",
     borderRadius: "5px",
