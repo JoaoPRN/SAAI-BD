@@ -9,14 +9,12 @@ const LoginPage: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const alunos = await listaAlunos();
-    console.log(alunos);
     const encontrarAluno = alunos.listaAlunos.find(
       (dados: { [x: string]: string }) =>
         dados["NUM_MATRICULA_ALUNO"] == usuario
     );
-    console.log(encontrarAluno);
+
     if (encontrarAluno) {
-      console.log(usuario);
       navigate("/avaliacao", { state: { matriculaAluno: usuario } });
     }
   };
@@ -106,8 +104,8 @@ const styles: { [key: string]: React.CSSProperties } = {
   button: {
     padding: "0.75rem",
     fontSize: "1rem",
-    backgroundColor: "#4CAF50",
-    color: "#1E90FF",
+    backgroundColor: "#0062ff",
+    color: "#000000",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",

@@ -4,11 +4,11 @@ import MatriculaService from "../service/MatriculaService";
 class MatriculaController {
   static async consultarMatricula(req: Request, res: Response) {
     try {
-      const matriculaALuno = await MatriculaService.consultaMatricula(
+      const matriculaAluno = await MatriculaService.consultaMatricula(
         req.body.matriculaAluno
       );
 
-      res.status(201).json({ matriculaALuno });
+      res.status(201).json({ matriculaAluno });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Matricula não encontrada!" });

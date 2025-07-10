@@ -5,10 +5,12 @@
     "dt_ingresso": "2023-02-10",
     "dt_nascimento": "2000-05-15",
     "nome_curso": "Engenharia",
+    "dado.aluno_foto": null,
 
     "matricula_professor": 1001,
     "nome_professor": "Maria Oliveira",
     "dt_ingresso_professor": "2012-03-01",
+    "dado.professor_foto": null,
 
     "codigo_disciplina": 101,
     "nome_disciplina": "Cálculo I",
@@ -28,10 +30,12 @@
     "dt_ingresso": "2022-03-01",
     "dt_nascimento": "2001-04-10",
     "nome_curso": "Computação",
+    "dado.aluno_foto": null,
 
     "matricula_professor": 1002,
     "nome_professor": "Carlos Souza",
     "dt_ingresso_professor": "2015-07-10",
+    "dado.professor_foto": null,
 
     "codigo_disciplina": 102,
     "nome_disciplina": "Estrutura de Dados",
@@ -51,10 +55,12 @@
     "dt_ingresso": "2023-02-15",
     "dt_nascimento": "2002-09-20",
     "nome_curso": "Matemática",
+    "dado.aluno_foto": null,
 
     "matricula_professor": 1003,
     "nome_professor": "Fernanda Lima",
     "dt_ingresso_professor": "2011-05-10",
+    "dado.professor_foto": null,
 
     "codigo_disciplina": 103,
     "nome_disciplina": "Banco de Dados",
@@ -74,10 +80,12 @@
     "dt_ingresso": "2021-03-01",
     "dt_nascimento": "1999-11-30",
     "nome_curso": "Física",
+    "dado.aluno_foto": null,
 
     "matricula_professor": 1004,
     "nome_professor": "José Almeida",
     "dt_ingresso_professor": "2010-01-20",
+    "dado.professor_foto": null,
 
     "codigo_disciplina": 104,
     "nome_disciplina": "Física I",
@@ -97,10 +105,12 @@
     "dt_ingresso": "2022-08-01",
     "dt_nascimento": "2000-12-25",
     "nome_curso": "Química",
+    "dado.aluno_foto": null,
 
     "matricula_professor": 1005,
     "nome_professor": "Ricardo Souza",
     "dt_ingresso_professor": "2013-09-05",
+    "dado.professor_foto": null,
 
     "codigo_disciplina": 105,
     "nome_disciplina": "Química Orgânica",
@@ -120,10 +130,12 @@
     "dt_ingresso": "2021-02-01",
     "dt_nascimento": "2001-07-07",
     "nome_curso": "História",
+    "dado.aluno_foto": null,
 
     "matricula_professor": 1006,
     "nome_professor": "Tatiane Freitas",
     "dt_ingresso_professor": "2009-11-01",
+    "dado.professor_foto": null,
 
     "codigo_disciplina": 106,
     "nome_disciplina": "Sistemas Digitais",
@@ -143,10 +155,12 @@
     "dt_ingresso": "2023-01-10",
     "dt_nascimento": "2003-02-14",
     "nome_curso": "Administração",
+    "dado.aluno_foto": null,
 
     "matricula_professor": 1007,
     "nome_professor": "Paulo Andrade",
     "dt_ingresso_professor": "2014-06-15",
+    "dado.professor_foto": null,
 
     "codigo_disciplina": 107,
     "nome_disciplina": "Inteligência Artificial",
@@ -166,10 +180,12 @@
     "dt_ingresso": "2020-08-15",
     "dt_nascimento": "1998-10-05",
     "nome_curso": "Geografia",
+    "dado.aluno_foto": null,
 
     "matricula_professor": 1008,
     "nome_professor": "Aline Matos",
     "dt_ingresso_professor": "2008-12-10",
+    "dado.professor_foto": null,
 
     "codigo_disciplina": 108,
     "nome_disciplina": "Cálculo Numérico",
@@ -189,10 +205,12 @@
     "dt_ingresso": "2022-03-05",
     "dt_nascimento": "2002-03-20",
     "nome_curso": "Letras",
+    "dado.aluno_foto": null,
 
     "matricula_professor": 1009,
     "nome_professor": "Bruno Reis",
     "dt_ingresso_professor": "2016-04-01",
+    "dado.professor_foto": null,
 
     "codigo_disciplina": 109,
     "nome_disciplina": "Álgebra Linear",
@@ -212,10 +230,12 @@
     "dt_ingresso": "2021-01-20",
     "dt_nascimento": "2001-01-30",
     "nome_curso": "Psicologia",
+    "dado.aluno_foto": null,
 
     "matricula_professor": 1010,
     "nome_professor": "Letícia Ramos",
     "dt_ingresso_professor": "2011-08-18",
+    "dado.professor_foto": null,
 
     "codigo_disciplina": 110,
     "nome_disciplina": "Psicologia Geral",

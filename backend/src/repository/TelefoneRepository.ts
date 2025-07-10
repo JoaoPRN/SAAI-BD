@@ -5,4 +5,10 @@ export class TelefoneRepository {
 
     await connection.execute(sql, [matricula, telefone]);
   }
+
+  static async delete(connection: any, matricula: number) {
+    const sql = `DELETE FROM SAAI.TD_TELEFONE WHERE NUM_MATRICULA_ALUNO = ?`;
+
+    await connection.execute(sql, [matricula]);
+  }
 }

@@ -1,13 +1,14 @@
 import {
-  IsInt,
-  Min,
+  IsInt, // nao ta testanod isso
+  Min, // nao ta testanod isso
   IsString,
   IsDateString,
-  Validate,
   IsDefined,
   Length,
   Matches,
   IsNotEmpty,
+  Validate, // nao ta testando isso
+  IsOptional
 } from "class-validator";
 
 export class RequisicaoCriarAlunoDTO {
@@ -21,9 +22,9 @@ export class RequisicaoCriarAlunoDTO {
   @IsNotEmpty({ message: "Nome não pode ser vazio." })
   nome!: string;
 
-  @IsDefined({ message: "Nome é obrigatório." })
-  @IsString({ message: "Nome deve ser uma string." })
-  @IsNotEmpty({ message: "Nome não pode ser vazio." })
+  @IsDefined({ message: "Curso é obrigatório." })
+  @IsString({ message: "Curso deve ser uma string." })
+  @IsNotEmpty({ message: "Curso não pode ser vazio." })
   curso!: string;
 
   @IsDefined({ message: "Data de ingresso é obrigatória." })
@@ -40,7 +41,10 @@ export class RequisicaoCriarAlunoDTO {
   )
   dataNascimento!: string;
 
-  @Length(11, 11, { message: "telefone deve ter exatamente 11 caracteres." })
-  @Matches(/^\d+$/, { message: "telefone deve conter apenas números." })
+  @Length(11, 11, { message: "Telefone deve ter exatamente 11 caracteres." })
+  @Matches(/^\d+$/, { message: "Telefone deve conter apenas números." })
   telefone!: string;
+
+  @IsOptional()
+  foto?: Blob | null;
 }

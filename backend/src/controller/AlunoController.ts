@@ -4,6 +4,7 @@ import { RequisicaoExcluirAlunoDTO } from "../dtos/alunoDTO/RequisicaoExcluirAlu
 import AlunoService from "../service/AlunoService";
 
 class AlunoController {
+  /*
   static async criarAluno(
     req: Request<{}, {}, RequisicaoCriarAlunoDTO>,
     res: Response
@@ -16,15 +17,40 @@ class AlunoController {
       console.error("Erro ao criar aluno:", error);
       res.status(500).json({ message: "Erro interno ao criar aluno" });
     }
+  }*/
+
+  static async criarAluno(req: Request, res: Response) {
+    try {
+      const foto = req.file?.buffer ?? null;
+
+      const alunoData: RequisicaoCriarAlunoDTO = {
+        ...req.body,
+        foto,
+      };
+
+      await AlunoService.criarAluno(alunoData);
+
+      res.status(201).json({ message: "Aluno criado com sucesso!" });
+    } catch (error) {
+      console.error("Erro ao criar aluno:", error);
+      res.status(500).json({ message: "Erro interno ao criar aluno" });
+    }
   }
 
   static async listarAlunos(req: Request, res: Response) {
     try {
       const listaAlunos = await AlunoService.listarAlunos();
 
-      res.status(200).json({
-        listaAlunos,
+      const alunosComFoto = listaAlunos.map((aluno: any) => {
+        return {
+          ...aluno,
+          FOTO_ALUNO: aluno.FOTO_ALUNO
+            ? aluno.FOTO_ALUNO.toString("base64")
+            : null,
+        };
       });
+
+      res.status(200).json({ listaAlunos: alunosComFoto });
     } catch (error) {
       console.error("Erro ao listar alunos:", error);
       res.status(500).json({ message: "Erro interno ao listar alunos." });
@@ -47,9 +73,12 @@ class AlunoController {
       } else {
         res.status(404).json({ message: "Aluno não encontrado." });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao excluir aluno:", error);
-      res.status(500).json({ message: "Erro interno ao excluir aluno." });
+      res.status(500).json({
+        message: "Erro interno ao excluir aluno.",
+        erro: error.sqlMessage,
+      });
     }
   }
 }
