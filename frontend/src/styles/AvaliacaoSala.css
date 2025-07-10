@@ -1,0 +1,103 @@
+.avaliacao-wrapper {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+}
+
+.subtitle {
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.avaliacao-sections {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.avaliacao-box {
+  flex: 1;
+  min-width: 350px;
+  background: #fefefe;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.avaliacao-box h3 {
+  color: #234;
+  margin-bottom: 1rem;
+}
+
+.rating-group {
+  margin-bottom: 1rem;
+  justify-content: left;
+}
+
+.rating-group span {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.stars {
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 0.3rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.star {
+  color: #ccc;
+  margin-right: 0.2rem;
+}
+
+.star.filled {
+  color: #f5b301;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.sugestoes-box {
+  margin-top: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1rem;
+  background: #0628e9;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #0044d6;
+  color: rgb(6, 6, 7);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.card-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: block;
+  text-align: left;
+}
+
+.card-button:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s;
+}

@@ -1,44 +1,62 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Tabs.css";
 import DisciplinasCard from "../components/DisciplinasCard";
+import SalasCard from "../components/SalasCard";
+import ServicoCard from "../components/ServicoCard";
 import { useLocation, useNavigate } from "react-router-dom";
+
+interface GradeHorariaItem {
+  COD_ID_TURMA: string;
+  NOM_DISCIPLINA: string;
+  NOM_PROFESSOR: string;
+  NUM_CAPACIDADE: string;
+  NUM_CARGA_HORARIA: string;
+  NUM_MATRICULA_ALUNO: string;
+  NUM_SALA: string;
+  NUM_SEMESTRE: string;
+  COD_IND_AVALIACAO: string;
+  NOM_TIPO_SERVICO: string;
+  COD_TIPO_SERVICO: string;
+}
 
 const Avaliacao = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { matriculaAluno } = location.state || {};
+
   const [activeTab, setActiveTab] = useState<
     "disciplinas" | "salas" | "servicos"
   >("disciplinas");
-  const location = useLocation();
-  const { matriculaAluno } = location.state || {};
-  const [gradeHoraria, setgradeHoraria] = useState<
-    | [
-        {
-          COD_ID_TURMA: string;
-          NOM_DISCIPLINA: string;
-          NOM_PROFESSOR: string;
-          NUM_CAPACIDADE: string;
-          NUM_CARGA_HORARIA: string;
-          NUM_MATRICULA_ALUNO: string;
-          NUM_SALA: string;
-          NUM_SEMESTRE: string;
-          COD_IND_AVALIACAO: string;
-        }
-      ]
-    | null
-  >(null);
+
+  const [gradeHoraria, setGradeHoraria] = useState<GradeHorariaItem[] | null>(
+    null
+  );
 
   useEffect(() => {
-    ListaDisciplinasMatriculadas(matriculaAluno).then((dados) => {
-      if (dados) {
-        setgradeHoraria(dados);
-      }
-    });
-  }, []);
+    if (matriculaAluno) {
+      ListaDisciplinasMatriculadas(matriculaAluno).then((dados) => {
+        if (dados) {
+          setGradeHoraria(dados);
+        }
+      });
+    }
+  }, [matriculaAluno]);
 
-  const handleCardClick = (matricula: any) => {
-    console.log(matricula);
+  const handleCardClick = (matricula: GradeHorariaItem) => {
     navigate("/avaliacaoDisciplina", {
       state: { dados: matricula, codigoMatricula: matriculaAluno },
+    });
+  };
+
+  const handleCardClickSala = (sala: GradeHorariaItem) => {
+    navigate("/avaliacaoSala", {
+      state: { dados: sala, codigoSala: sala.NUM_SALA },
+    });
+  };
+
+  const handleCardClickServico = (servico: GradeHorariaItem) => {
+    navigate("/avaliacaoServico", {
+      state: { dados: servico, codigoServico: servico.COD_ID_TURMA },
     });
   };
 
@@ -53,6 +71,7 @@ const Avaliacao = () => {
           disciplinas, professores, salas e serviços
         </h3>
       </header>
+
       <div className="tabs">
         <button
           className={activeTab === "disciplinas" ? "active" : ""}
@@ -73,6 +92,7 @@ const Avaliacao = () => {
           🛠 Avaliar Serviços
         </button>
       </div>
+
       {activeTab === "disciplinas" && (
         <div className="discipline-wrapper">
           <p>
@@ -82,18 +102,57 @@ const Avaliacao = () => {
 
           <div className="card-grid">
             {gradeHoraria &&
-              gradeHoraria.map((turma, index) => (
+              gradeHoraria.map((item, index) => (
                 <div
                   key={index}
                   className="card-button"
-                  onClick={() => handleCardClick(turma)}
+                  onClick={() => handleCardClick(item)}
                   role="button"
                   tabIndex={0}
-                  // onKeyDown={(e) =>
-                  //   e.key === "Enter" && handleCardClick(matricula)
-                  // }
                 >
-                  <DisciplinasCard key={index} matriculaAluno={turma} />
+                  <DisciplinasCard matriculaAluno={item} />
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
+
+      {activeTab === "salas" && (
+        <div className="salas-wrapper">
+          <p>Avalie as salas onde você tem aula para ajudar outros estudantes</p>
+
+          <div className="card-grid">
+            {gradeHoraria &&
+              gradeHoraria.map((sala, index) => (
+                <div
+                  key={index}
+                  className="card-button"
+                  onClick={() => handleCardClickSala(sala)}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <SalasCard matriculaAluno={sala} />
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
+
+      {activeTab === "servicos" && (
+        <div className="servicos-wrapper">
+          <p>Avalie os serviços disponíveis...</p>
+
+          <div className="card-grid">
+            {gradeHoraria &&
+              gradeHoraria.map((servico, index) => (
+                <div
+                  key={index}
+                  className="card-button"
+                  onClick={() => handleCardClickServico(servico)}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <ServicoCard matriculaAluno={servico} />
                 </div>
               ))}
           </div>
@@ -122,6 +181,7 @@ async function ListaDisciplinasMatriculadas(matricula: number) {
     return data.matriculaAluno;
   } catch (error) {
     console.error("Erro na requisição:", error);
+    return null;
   }
 }
 

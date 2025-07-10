@@ -65,7 +65,7 @@ class AvaliacaoTurmasController {
         parseInt(codigoTurma, 10)
       );
 
-      if (sucesso) {
+      if (sucesso!) {
         res
           .status(201)
           .json({ message: "Exclusão da avalicao feita com sucesso!" });
