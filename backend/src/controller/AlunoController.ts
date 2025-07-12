@@ -4,21 +4,6 @@ import { RequisicaoExcluirAlunoDTO } from "../dtos/alunoDTO/RequisicaoExcluirAlu
 import AlunoService from "../service/AlunoService";
 
 class AlunoController {
-  /*
-  static async criarAluno(
-    req: Request<{}, {}, RequisicaoCriarAlunoDTO>,
-    res: Response
-  ) {
-    try {
-      await AlunoService.criarAluno(req.body);
-
-      res.status(201).json({ message: "Aluno criado com sucesso!" });
-    } catch (error) {
-      console.error("Erro ao criar aluno:", error);
-      res.status(500).json({ message: "Erro interno ao criar aluno" });
-    }
-  }*/
-
   static async criarAluno(req: Request, res: Response) {
     try {
       const foto = req.file?.buffer ?? null;

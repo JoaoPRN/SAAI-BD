@@ -7,6 +7,7 @@ import { TelefoneRepository } from "../repository/TelefoneRepository";
 import AvaliacaoSalaRepository from "../repository/AvaliacaoSalaRepository";
 import AvaliacaoServicoRepository from "../repository/AvaliacaoServicoRepository";
 import AvalicaoTurmasRepository from "../repository/AvaliacaoTurmasRepository";
+import { MatriculaRepository } from "../repository/MatriculaRepository";
 
 class AlunoService {
   static async criarAluno(dados: RequisicaoCriarAlunoDTO) {
@@ -54,6 +55,7 @@ class AlunoService {
         connection,
         matricula
       );
+      await MatriculaRepository.deletar(connection, matricula);
       await AvalicaoTurmasRepository.excluirPorMatricula(connection, matricula);
       const resultado = await AlunoRepository.excluir(connection, matricula);
       await connection.commit();
