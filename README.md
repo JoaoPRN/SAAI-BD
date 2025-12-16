@@ -1,5 +1,8 @@
 # 📚 Sistema de Avaliação Acadêmica Integrada (SAAI)
 
+💡 Sobre o Projeto
+Este projeto implementa um sistema de avaliação de ambietes institucionais.
+
 ## ✅ Requisitos
 
 - Node.js (v18 ou superior)
